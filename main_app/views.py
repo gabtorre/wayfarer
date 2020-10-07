@@ -24,3 +24,6 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'regristration/signup.html', context)
+
+def profile_edit(request):
+    return 
