@@ -51,9 +51,9 @@ def post(request, post_id):
 
 # show profile
 def profile(request):
-    posts = Post.objects.filter(user=request.user)
+    posts = Post.objects.filter(user=request.user.id)
     context = {'posts':posts}
-    return render(request, 'account/profile.html')
+    return render(request, 'account/profile.html', context)
 
 
 # sign up
