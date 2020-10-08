@@ -1,8 +1,11 @@
+# external
 from django.shortcuts import render
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required 
 
+# internal
+from .forms import Profile_Form
 
 # Create your views here.
 
@@ -10,7 +13,17 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'home.html')
 
+
+
+
 # auth views
+
+# show profile
+def profile(request):
+    return render(request, 'account/profile.html')
+
+
+# sign up
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -18,12 +31,24 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('account/profile.html')
+            return redirect('profile')
         else:
             error_message = 'Invalid sign up - try again'
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'regristration/signup.html', context)
 
+
+# edit and update
 def profile_edit(request):
-    return 
+    user = request.user
+    if request.method == 'POST':
+        profile_form = Profile_Form(request.POST, instance=user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('profile')
+    else:
+        profile_form = Profile_Form(instance=user.profile)
+    context = {'profile_form': profile_form}
+    return render(request, 'account/edit.html', context)
+    
