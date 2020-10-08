@@ -35,10 +35,7 @@ def home(request):
         else:
             error_message = 'Invalid sign up - try again'
 
-    auth_form = AuthenticationForm()
-    signup_form = UserCreationForm()
-    context={"auth_form":auth_form, 'signup_form': signup_form}
-    return render(request, 'home.html', context)
+    return render(request, 'home.html')
 
 
 
