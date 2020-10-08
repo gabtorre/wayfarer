@@ -121,6 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+# DEFAULT_IMAGE_PATH = '/images/default.jpg'
+
 LOGIN_REDIRECT_URL = '/account/profile'
 
 LOGOUT_REDIRECT_URL = '/'

@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 {{user.name}}
+{{user.profile.image}}
 {{user.profile.city}}
 <a href="{% url 'profile_edit' %}">edit</a>
 {{user.date_joined}}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_fields import DefaultStaticImageField
 
 # Create your models here.
 
@@ -7,6 +8,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     user = models.OneToOneField(User, on_delete=(models.CASCADE))
+    image = models.ImageField(upload_to = 'images/', default = 'images/default.jpg')
 
     def __str__(self):
         return self.user.username
