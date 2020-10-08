@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 # internal
 from .forms import Profile_Form
+from .models import Post, City
 # Create your views here.
 
 """ TODO handle error messages """
@@ -35,11 +36,14 @@ def home(request):
         else:
             error_message = 'Invalid sign up - try again'
 
-    auth_form = AuthenticationForm()
-    signup_form = UserCreationForm()
-    context={"auth_form":auth_form, 'signup_form': signup_form}
-    return render(request, 'home.html', context)
+    return render(request, 'home.html')
 
+
+# view post
+def post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    context = {'post':post}
+    return render(request, 'Post/post.html', context)
 
 
 
@@ -47,23 +51,25 @@ def home(request):
 
 # show profile
 def profile(request):
-    return render(request, 'account/profile.html')
+    posts = Post.objects.filter(user=request.user.id)
+    context = {'posts':posts}
+    return render(request, 'account/profile.html', context)
 
 
 # sign up
-def signup(request):
-    error_message = ''
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('profile')
-        else:
-            error_message = 'Invalid sign up - try again'
-    form = UserCreationForm()
-    context = {'form': form, 'error_message': error_message}
-    return render(request, 'regristration/signup.html', context)
+# def signup(request):
+#     error_message = ''
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('profile')
+#         else:
+#             error_message = 'Invalid sign up - try again'
+#     form = UserCreationForm()
+#     context = {'form': form, 'error_message': error_message}
+#     return render(request, 'regristration/signup.html', context)
 
 
 # edit and update

@@ -18,7 +18,7 @@
     <!-- Main Menu -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'home' %}">
             <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             Wayfarer
         </a>
@@ -27,23 +27,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <p class="nav-item nav-link">Welcome {{user.username}}!</p>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+            {% else %}
             <a class="nav-item nav-link" data-toggle="modal" data-target="#loginModal" href="#">Sign In</a>
             <a class="nav-item nav-link" data-toggle="modal" data-target="#signupModal" href="#">Sign Up</a>
-            <a class="nav-item nav-link" href="#">Profile</a>
+            {% endif %}
           </div>
-          {% if user.is_authenticated %}
-          <h1>WELCOME</h1>
-          <li><a href="{% url 'logout' %}">Log Out</a></li>
-          {% endif %}
         </div>
     </div>
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+
     {% block content %}
     {% endblock %}
-    </div>
+
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -102,6 +103,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    
+    <footer class="dark-red-bg mt-5">
+      <div class="container">
+      <p class="float-right"><a href="#">Back to top</a></p>
+      <p class="text-white">© 2020 Wayfarer, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </div>
+    </footer>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
