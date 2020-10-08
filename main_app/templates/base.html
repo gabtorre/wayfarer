@@ -29,7 +29,7 @@
           <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link" data-toggle="modal" data-target="#loginModal" href="#">Sign In</a>
             <a class="nav-item nav-link" data-toggle="modal" data-target="#signupModal" href="#">Sign Up</a>
-            <a class="nav-item nav-link" href="#">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
           </div>
           {% if user.is_authenticated %}
           <h1>WELCOME</h1>
@@ -40,10 +40,10 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+
     {% block content %}
     {% endblock %}
-    </div>
+
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -102,6 +102,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    
+    <footer class="dark-red-bg mt-5">
+      <div class="container">
+      <p class="float-right"><a href="#">Back to top</a></p>
+      <p class="text-white">© 2020 Wayfarer, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </div>
+    </footer>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
