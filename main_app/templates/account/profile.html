@@ -2,8 +2,21 @@
 
 {% block content %}
 
-{{user.name}}
-{{user.profile.city}}
-<a href="{% url 'profile_edit' %}">edit</a>
-{{user.date_joined}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                {{user.name}}
+                {{user.profile.city}}
+                {{user.date_joined}}
+                <a href="{% url 'profile_edit' %}">edit</a>
+            </div>
+        </div>
+        {% comment %} here goes the posts {% endcomment %}
+        {% for post in posts %}
+        
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 # internal
 from .forms import Profile_Form
+from .models import Post, City
 # Create your views here.
 
 """ TODO handle error messages """
@@ -41,29 +42,37 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+# view post
+def post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    context = {'post':post}
+    return render(request, 'Post/post.html', context)
+
 
 
 # auth views
 
 # show profile
 def profile(request):
+    posts = Post.objects.filter(user=request.user)
+    context = {'posts':posts}
     return render(request, 'account/profile.html')
 
 
 # sign up
-def signup(request):
-    error_message = ''
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('profile')
-        else:
-            error_message = 'Invalid sign up - try again'
-    form = UserCreationForm()
-    context = {'form': form, 'error_message': error_message}
-    return render(request, 'regristration/signup.html', context)
+# def signup(request):
+#     error_message = ''
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('profile')
+#         else:
+#             error_message = 'Invalid sign up - try again'
+#     form = UserCreationForm()
+#     context = {'form': form, 'error_message': error_message}
+#     return render(request, 'regristration/signup.html', context)
 
 
 # edit and update
