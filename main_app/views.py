@@ -54,6 +54,8 @@ def post(request, post_id):
 
 # show profile
 def profile(request):
+    posts = Post.objects.filter(user=request.user)
+    context = {'posts':posts}
     return render(request, 'account/profile.html')
 
 
