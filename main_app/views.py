@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required 
 
 # internal
-from .forms import Profile_Form
+from .forms import Profile_Form, Post_Form
 from .models import Post, City
 # Create your views here.
 
@@ -42,6 +42,7 @@ def home(request):
 # view post
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
+    post_form = Post_Form(instance=post_id)
     context = {'post':post}
     return render(request, 'Post/post.html', context)
 
