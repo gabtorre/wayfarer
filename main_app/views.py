@@ -1,12 +1,11 @@
 # external
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required 
 
 # internal
 from .forms import Profile_Form
-
 # Create your views here.
 
 # main views
@@ -43,12 +42,23 @@ def signup(request):
 def profile_edit(request):
     user = request.user
     if request.method == 'POST':
-        profile_form = Profile_Form(request.POST, instance=user.profile)
-        if profile_form.is_valid():
-            profile_form.save()
-            return redirect('profile')
+        try:
+            profile_form = Profile_Form(request.POST, instance=user.profile)
+            if profile_form.is_valid():
+                profile_form.save()
+        except:
+            profile_form = Profile_Form(request.POST)
+            if profile_form.is_valid():
+                new_profile = profile_form.save(commit=False)
+                new_profile.user = request.user
+                new_profile.save()
+        return redirect('profile')
     else:
-        profile_form = Profile_Form(instance=user.profile)
-    context = {'profile_form': profile_form}
-    return render(request, 'account/edit.html', context)
-    
+        try:
+            profile_form = Profile_Form(instance=user.profile)
+            context = {'profile_form': profile_form}
+            return render(request, 'account/edit.html', context)
+        except:
+            profile_form = Profile_Form()
+            context = {'profile_form': profile_form}
+            return render(request, 'account/edit.html', context)
