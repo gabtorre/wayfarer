@@ -1,16 +1,27 @@
 :root {
     --black: #070708;
     --gray: #A3C0C3;
+    --dark-gray: #15191C;
     --red: #F91D14;
+    --mid-red: #FF4F43;
     --light-red: #9E201A;
     --dark-red: #5A1311;
     --light-blue: #109098;
     --dark-blue: #2F5255;
   }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+  
+  background-image: url("../download.png");
+
+  
+}
+
 footer {
   padding-top: 40px;
   padding-bottom: 40px;
+  background-color: var(--dark-gray);
 }
 
 footer a {
@@ -26,5 +37,44 @@ a {
 }
 
 .dark-red-bg {
-  background-color: var(--dark-red);
+  background-color: var(--mid-red);
+}
+
+.menu-height {
+  height: 100px;
+}
+
+
+height: 100px;
+
+.main-font {
+  font-family: 'Montserrat', sans-serif;
+}
+
+nav a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 29px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+nav a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 29px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+nav a:hover, a:active {
+  color: var(--black);
+}
+
+h1 {
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
 }
