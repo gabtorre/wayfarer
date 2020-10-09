@@ -4,25 +4,20 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-10">
 
-        </div>
-    </div>
-</div>
 
 <!-- user info card -->
 <div class="container">
     <div class="row">
-        <div class="col-3 text-center">
-            <div class="card">
+        <div class="text-center">
+            <img class="img-fluid" src="https://d1bvwpcbxq9v24.cloudfront.net/NMS0HM9H/Sunset-Skyline-Header-Image.-Courtesty-Austin-Convention-Visitors-Bureau-Credit-Geoff-Duncan_exp-May-2020.jpg" alt="">
+            <div class="card card-profile w-25 mx-auto">
+                <img class="img-thumbnail rounded-circle z-depth-2 mx-auto" width="150px" alt="100x100" src="{{ user.profile.image.url }}"  data-holder-rendered="true">
                 {{user.profile.name}}
                 <br> 
                 Current City: {{user.profile.city}}
                 <br>
                 Date Joined: {{user.date_joined}}
-                <img class="img-thumbnail rounded-circle z-depth-2" alt="100x100" src="{{ user.profile.image.url }}"  data-holder-rendered="true">
                 <a href="{% url 'profile_edit' %}">edit</a>
             </div>
         </div>
