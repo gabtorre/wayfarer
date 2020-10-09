@@ -78,3 +78,7 @@ h1 {
   color: #fff;
   text-transform: uppercase;
 }
+
+.card-profile {
+    margin-top: -75px;
+}
