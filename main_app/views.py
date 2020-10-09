@@ -47,6 +47,14 @@ def post(request, post_id):
     return render(request, 'Post/post.html', context)
 
 
+def main(request, city_id):
+    cities = City.objects.all()
+    city = City.objects.get(id=city_id)
+    posts = Post.objects.filter(city=city_id)
+    #posts = Post.objects.all()
+    context = {'c_city':city, 'posts':posts, 'cities': cities}
+    return render(request, 'main.html', context)
+
 
 # auth views
 
