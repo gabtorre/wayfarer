@@ -112,7 +112,6 @@ def profile_edit(request):
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
-                profile.image = request.FILES['image']
                 new_profile.save()
         except:
             profile_form = Profile_Form(request.POST, request.FILES)
