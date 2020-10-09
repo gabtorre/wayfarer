@@ -5,9 +5,10 @@ from wayfare import settings
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('cities/<int:city_id>', views.main, name='main'),
+    path('post_new/<int:city_id>', views.new_post, name='new_post'),
     path('post/<int:post_id>/', views.post, name='post'),
     path('post/<int:post_id>/delete', views.post_delete, name='post_delete'),
-    path('cities/<int:city_id>', views.main, name='main'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     path('accounts/profile/edit', views.profile_edit, name='profile_edit'),
