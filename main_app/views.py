@@ -42,10 +42,20 @@ def home(request):
 # view post
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST, instance=post)
+        if post_form.is_valid:
+            post_form.save()
+            return redirect('post', post_id)
+
     post_form = Post_Form(instance=post)
     context = {'post':post, 'post_form': post_form}
     return render(request, 'Post/post.html', context)
 
+# delete post
+def post_delete(request, post_id):
+    Post.objects.get(id=post_id).delete()
+    return redirect('main', city_id)
 
 def main(request, city_id):
     cities = City.objects.all()
