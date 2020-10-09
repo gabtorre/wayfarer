@@ -42,8 +42,8 @@ def home(request):
 # view post
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
-    post_form = Post_Form(instance=post_id)
-    context = {'post':post}
+    post_form = Post_Form(instance=post)
+    context = {'post':post, 'post_form': post_form}
     return render(request, 'Post/post.html', context)
 
 

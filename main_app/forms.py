@@ -9,4 +9,4 @@ class Profile_Form(ModelForm):
 class Post_Form(ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content','city']
