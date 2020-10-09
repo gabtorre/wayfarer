@@ -86,14 +86,18 @@ def profile_edit(request):
     user = request.user
     if request.method == 'POST':
         try:
-            profile_form = Profile_Form(request.POST, instance=user.profile)
-            if profile_form.is_valid():
-                profile_form.save()
-        except:
-            profile_form = Profile_Form(request.POST)
+            profile_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
+                profile.image = request.FILES['image']
+                new_profile.save()
+        except:
+            profile_form = Profile_Form(request.POST, request.FILES)
+            if profile_form.is_valid():
+                new_profile = profile_form.save(commit=False)
+                new_profile.user = request.user
+                profile.image = request.FILES['image']
                 new_profile.save()
         return redirect('profile')
     else:
