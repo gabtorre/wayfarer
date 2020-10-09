@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="{% url 'profile_edit' %}" method='POST'>
+<form enctype="multipart/form-data" action="{% url 'profile_edit' %}" method='POST'>
     {% csrf_token %}
     {{ profile_form.as_p }}
     <input type="submit" value="Update">
