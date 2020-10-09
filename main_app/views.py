@@ -39,20 +39,42 @@ def home(request):
     return render(request, 'home.html')
 
 
-# view post
+# post create
+def new_post(request, city_id):
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST)
+        if post_form.is_valid():
+            new_post = post_form.save(commit=False)
+            new_post.user = request.user
+            new_post.city = City.objects.get(id=city_id)
+            new_post.save()
+        return redirect('main', city_id)
+
+# view/update post
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
-    post_form = Post_Form(instance=post_id)
-    context = {'post':post}
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST, instance=post)
+        if post_form.is_valid:
+            post_form.save()
+        return redirect('post', post_id)
+
+    post_form = Post_Form(instance=post)
+    context = {'post':post, 'post_form': post_form}
     return render(request, 'Post/post.html', context)
 
+# delete post
+def post_delete(request, post_id):
+    Post.objects.get(id=post_id).delete()
+    return redirect('profile')
 
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
     posts = Post.objects.filter(city=city_id)
+    post_form = Post_Form()
     #posts = Post.objects.all()
-    context = {'c_city':city, 'posts':posts, 'cities': cities}
+    context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form}
     return render(request, 'main.html', context)
 
 
