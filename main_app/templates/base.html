@@ -12,11 +12,15 @@
     <!-- Static CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
 
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
     <title>Wayfarer</title>
   </head>
   <body>
     <!-- Main Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg dark-red-bg menu-height">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -106,7 +110,7 @@
 
     <!-- Footer -->
     
-    <footer class="dark-red-bg mt-5">
+    <footer class="mt-5">
       <div class="container">
       <p class="float-right"><a href="#">Back to top</a></p>
       <p class="text-white">© 2020 Wayfarer, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
