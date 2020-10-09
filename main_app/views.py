@@ -48,7 +48,7 @@ def new_post(request, city_id):
             new_post.user = request.user
             new_post.city = City.objects.get(id=city_id)
             new_post.save()
-            return redirect('main', city_id)
+        return redirect('main', city_id)
 
 # view/update post
 def post(request, post_id):
