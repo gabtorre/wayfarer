@@ -10,7 +10,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     user = models.OneToOneField(User, on_delete=(models.CASCADE))
-    image = models.ImageField(null=True, blank=True, upload_to = 'images', default = 'images/default.jpg')
+    image = models.ImageField(null=True, blank=True, upload_to = 'images', default = 'images/default.png')
     
     def __str__(self):
         return self.user.username

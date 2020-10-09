@@ -6,13 +6,23 @@
 
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-10">
+
+        </div>
+    </div>
+</div>
+
+<!-- user info card -->
+<div class="container">
+    <div class="row">
+        <div class="col-3 text-center">
             <div class="card">
-                {{user.name}}
-                {{user.profile.image}}
-                {{user.profile.city}}
-                {{user.date_joined}}
-                <img src="{{ user.profile.image.url }}" alt="">
+                {{user.profile.name}}
+                <br> 
+                Current City: {{user.profile.city}}
+                <br>
+                Date Joined: {{user.date_joined}}
+                <img class="img-thumbnail rounded-circle z-depth-2" alt="100x100" src="{{ user.profile.image.url }}"  data-holder-rendered="true">
                 <a href="{% url 'profile_edit' %}">edit</a>
             </div>
         </div>
