@@ -42,7 +42,7 @@ def home(request):
 # view post
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
-    post_form = Post_Form(instance=post_id)
+    # post_form = Post_Form(instance=post_id)
     context = {'post':post}
     return render(request, 'Post/post.html', context)
 

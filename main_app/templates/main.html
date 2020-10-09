@@ -11,12 +11,10 @@
             <ul class="list-group list-group-flush">
             
                 {% for city in cities.all %}
-                <a href="{% url 'main' city.id %}">
                 <li class="list-group-item">
                     <img src="{{city.image}}" width="100px" height="100px" class="float-left">
                     <h3 class="float-right mr-4 mt-4">{{city.name}}</h3>
-                </li>
-                </a>
+                </li>    
                 {% endfor %}
 
             </ul>
@@ -32,8 +30,7 @@
                 <ul class="list-group list-group-flush">
                 {% for post in posts.all %}
                 <li class="list-group-item">
-                    <img src="{{post.image}}" width="100px" height="100px" class="float-left mr-2">
-                    <h4>{{post.title}}</h4>
+                    <h3>{{post.title}}</h3>
                     <p>{{post.content}}</p>
                 </li>
                 {% endfor %}
