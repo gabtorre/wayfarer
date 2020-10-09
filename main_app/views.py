@@ -71,7 +71,7 @@ def post_delete(request, post_id):
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
-    posts = Post.objects.filter(city=city_id)
+    posts = Post.objects.filter(city=city_id).order_by('-created_date')
     post_form = Post_Form()
     #posts = Post.objects.all()
     context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form}
