@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django_fields import DefaultStaticImageField
 from django.core.files.storage import FileSystemStorage
 fs=FileSystemStorage(location='media/images')
+from django.utils import timezone
 
 # Create your models here.
 
@@ -29,7 +30,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=500)
     image = models.CharField(max_length=300)
-
+    created_date = models.DateTimeField('date created', default=timezone.now)
     user = models.ForeignKey(User, on_delete=(models.CASCADE))
     city = models.ForeignKey(City, on_delete=(models.CASCADE))
 
