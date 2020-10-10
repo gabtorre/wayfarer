@@ -16,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 
-
     <title>Wayfarer</title>
   </head>
   <body>
@@ -97,9 +96,12 @@
               {% csrf_token %}
               {{ signup_form.as_p }}
               <input type="submit" class="btn" value="signup">
+
+              <!-- signup error handle -->
               {%if signup_errors %}
                 <p> {{signup_errors}}</p>
               {% endif %}
+
             </form>
             
           </div>
