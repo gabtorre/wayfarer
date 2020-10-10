@@ -15,15 +15,7 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-
-<script type="text/javascript">
-    $(document).ready(function(){
-      $('#signupModal').modal('show');
-    });
-</script>
 
     <title>Wayfarer</title>
   </head>
@@ -78,7 +70,6 @@
               <input type="submit" class="btn" value="login">
               <input type="hidden" name="next" value="{{ next }}">
             </form>
-            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -106,6 +97,9 @@
               {% csrf_token %}
               {{ signup_form.as_p }}
               <input type="submit" class="btn" value="signup">
+              {%if signup_errors %}
+                <p> {{signup_errors}}</p>
+              {% endif %}
             </form>
             
           </div>

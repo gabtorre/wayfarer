@@ -34,8 +34,7 @@ def home(request):
             login(request, user)
             return redirect('profile_edit')
         else:
-            context = {'errors':signup_form.errors.as_data()}
-            print(context['errors'])
+            context = {'signup_errors':signup_form.errors}
             return render(request, 'home.html', context)
 
     return render(request, 'home.html')
