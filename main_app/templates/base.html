@@ -72,7 +72,6 @@
               <input type="submit" class="btn" value="login">
               <input type="hidden" name="next" value="{{ next }}">
             </form>
-            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -100,6 +99,12 @@
               {% csrf_token %}
               {{ signup_form.as_p }}
               <input type="submit" class="btn" value="signup">
+
+              <!-- signup error handle -->
+              {%if signup_errors %}
+                <p> {{signup_errors}}</p>
+              {% endif %}
+
             </form>
             
           </div>
@@ -128,3 +133,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
+

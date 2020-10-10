@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <!-- signup error -->
+{% if signup_errors %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#signupModal').modal('show');
+    });
+</script>
+
+{% endif %}
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
@@ -39,7 +54,6 @@
 <div class="container">
 
     <h1 class="max-auto mt-4 mb-5 text-center">Wayfarer is...</h1>
-
     <div class="row">
       <div class="col-sm">
         <h3>Topic</h3>
