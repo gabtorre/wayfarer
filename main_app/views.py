@@ -6,11 +6,12 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
 from django.views.generic import ListView
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # internal
 from .forms import Profile_Form, Post_Form
 from .models import Post, City
+from . import filters
 # Create your views here.
 
 """ TODO handle error messages """
@@ -76,6 +77,7 @@ def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('profile')
 
+# cities view
 @login_required
 def main(request, city_id):
     cities = City.objects.all()
@@ -141,3 +143,4 @@ def profile_edit(request):
             profile_form = Profile_Form()
             context = {'profile_form': profile_form}
             return render(request, 'account/edit.html', context)
+
