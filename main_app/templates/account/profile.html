@@ -21,17 +21,24 @@
                 <a href="{% url 'profile_edit' %}">edit</a>
             </div>
         </div>
-        {% comment %} here goes the posts {% endcomment %}
-            <div class="col">
-        {% for post in posts.all %}
-                <div class="card">
-                    <div class="card-body">
-                        <a href="{% url 'post' post.id%}">{{post.title}}</a>
-                    </div>
-                </div>
-        {% endfor %}
-            </div>
     </div>
+</div>
+
+<!-- user posts -->
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for post in posts.all %}
+        <div class="col mb-4">
+            <div class="card card-posts h-100">
+                <div class="card-header">{{post.city}}</div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'post' post.id %}">{{post.title}}</a>
+                    <p class="card-text">{{post.content|truncatewords:"10"}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
 </div>
 
 {% endblock %}

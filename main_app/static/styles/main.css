@@ -82,3 +82,8 @@ h1 {
 .card-profile {
     margin-top: -75px;
 }
+
+.card-posts {
+    column-count: 3;
+    /* max-height: 250px; */
+}
