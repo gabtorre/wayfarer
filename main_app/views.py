@@ -2,6 +2,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
 
 # internal
@@ -40,6 +42,7 @@ def home(request):
 
 
 # post create
+@login_required
 def new_post(request, city_id):
     if request.method == 'POST':
         post_form = Post_Form(request.POST)
@@ -50,7 +53,9 @@ def new_post(request, city_id):
             new_post.save()
         return redirect('main', city_id)
 
+
 # view/update post
+@login_required
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
@@ -64,10 +69,12 @@ def post(request, post_id):
     return render(request, 'Post/post.html', context)
 
 # delete post
+@login_required
 def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('profile')
 
+@login_required
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
@@ -81,6 +88,7 @@ def main(request, city_id):
 # auth views
 
 # show profile
+@login_required
 def profile(request):
     posts = Post.objects.filter(user=request.user.id)
     context = {'posts':posts}
@@ -104,6 +112,7 @@ def profile(request):
 
 
 # edit and update
+@login_required
 def profile_edit(request):
     user = request.user
     if request.method == 'POST':

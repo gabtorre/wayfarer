@@ -5,8 +5,13 @@
 {{post.title}}
 {{post.content}}
 {{post.user.profile.name}}
+{{post.user.id }} {{request.user.id}}
+
+{% if post.user.id == request.user.id  %}
 <a class="nav-item nav-link" data-toggle="modal" data-target="#editPostModal" href="#">Edit</a>
 <a class="nav-item nav-link" data-toggle="modal" data-target="#deletePostModal" href="#">Delete</a>
+{% endif %}
+
 
 
 
