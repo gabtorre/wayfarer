@@ -34,9 +34,10 @@ def home(request):
         if signup_form.is_valid():
             user = signup_form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('profile_edit')
         else:
-            error_message = 'Invalid sign up - try again'
+            context = {'signup_errors':signup_form.errors}
+            return render(request, 'home.html', context)
 
     return render(request, 'home.html')
 
