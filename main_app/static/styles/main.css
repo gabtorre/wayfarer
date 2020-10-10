@@ -10,12 +10,26 @@
     --dark-blue: #2F5255;
   }
 
+.black {
+  color: var(--black);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 49px;
+  letter-spacing: 0px;
+}
+
+.navbar-brand {
+  border: 4px solid var(--black);
+  padding: 0px 5px;
+  margin: 15px 0 15px 0;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
-  
   background-image: url("../download.png");
-
-  
 }
 
 footer {
@@ -40,13 +54,6 @@ a {
   background-color: var(--mid-red);
 }
 
-.menu-height {
-  height: 100px;
-}
-
-
-height: 100px;
-
 .main-font {
   font-family: 'Montserrat', sans-serif;
 }
@@ -63,7 +70,7 @@ nav a {
 nav a {
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 29px;
   text-transform: uppercase;
   color: #fff;
@@ -115,4 +122,15 @@ h1 {
 
 .btn-primary:active, .btn-primary:visited {
   background: var(--light-red) !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
+@media (min-width: 992px) {
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 2.5rem;
+}
 }

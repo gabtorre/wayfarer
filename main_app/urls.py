@@ -5,6 +5,7 @@ from wayfare import settings
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('login_redirect', views.login_redirect, name='login_redirect'),
     path('cities/<int:city_id>', views.main, name='main'),
     path('new_post/<int:city_id>', views.new_post, name='new_post'),
     path('post/<int:post_id>/', views.post, name='post'),
