@@ -32,7 +32,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
-            <p class="nav-item nav-link">Welcome {{user.username}}!</p>
+
+            <p class="nav-item nav-link">Welcome {{user.profile.name}}!</p>
+
             <a class="nav-item nav-link" href="/cities/1">Cities</a>
             <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
             <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
