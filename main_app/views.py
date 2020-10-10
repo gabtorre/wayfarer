@@ -32,7 +32,7 @@ def home(request):
         if signup_form.is_valid():
             user = signup_form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('profile_edit')
         else:
             error_message = 'Invalid sign up - try again'
 
