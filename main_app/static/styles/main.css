@@ -77,13 +77,42 @@ h1 {
   font-weight: 900;
   color: #fff;
   text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 .card-profile {
     margin-top: -75px;
 }
 
-.card-posts {
-    column-count: 3;
-    /* max-height: 250px; */
+.city-caption {
+  margin-top: -160px;
+}
+
+.box{
+  position:relative;
+}
+
+.img-title{
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 35%;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn-red {
+  background: var(--red);
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.btn-red:hover {
+  background: var(--mid-red);
+}
+
+.btn-primary:active, .btn-primary:visited {
+  background: var(--light-red) !important;
 }

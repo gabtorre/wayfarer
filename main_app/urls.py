@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from wayfare import settings 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     path('accounts/profile/edit', views.profile_edit, name='profile_edit'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ] +static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

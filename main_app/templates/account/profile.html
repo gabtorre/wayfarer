@@ -18,7 +18,9 @@
                 Current City: {{user.profile.city}}
                 <br>
                 Date Joined: {{user.date_joined}}
-                <a href="{% url 'profile_edit' %}">edit</a>
+                    {% if user.profile.id == request.user.profile.id  %}
+                        <a href="{% url 'profile_edit' %}">edit</a>
+                    {% endif %}
             </div>
         </div>
     </div>
