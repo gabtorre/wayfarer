@@ -6,12 +6,12 @@
 
 
 
-<!-- user info card -->
-<div class="container">
+<!-- user info -->
+<div class="container mt-100">
     <div class="row">
         <div class="text-center">
-            <img class="img-fluid" src="https://d1bvwpcbxq9v24.cloudfront.net/NMS0HM9H/Sunset-Skyline-Header-Image.-Courtesty-Austin-Convention-Visitors-Bureau-Credit-Geoff-Duncan_exp-May-2020.jpg" alt="">
-            <div class="card card-profile w-25 mx-auto">
+            <img class="img-fluid rounded mt-3" src="https://d1bvwpcbxq9v24.cloudfront.net/NMS0HM9H/Sunset-Skyline-Header-Image.-Courtesty-Austin-Convention-Visitors-Bureau-Credit-Geoff-Duncan_exp-May-2020.jpg" alt="">
+            <div class="card card-profile p-2 w-25 mx-auto">
                 <img class="img-thumbnail rounded-circle z-depth-2 mx-auto" width="150px" alt="100x100" src="{{ user.profile.image.url }}"  data-holder-rendered="true">
                 {{user.profile.name}}
                 <br> 
@@ -29,7 +29,7 @@
     <div class="row row-cols-1 row-cols-md-3">
         {% for post in posts.all %}
         <div class="col mb-4">
-            <div class="card card-posts h-100">
+            <div class="card card-posts mt-5 h-100">
                 <div class="card-header">{{post.city}}</div>
                 <div class="card-body">
                     <a class="card-title" href="{% url 'post' post.id %}">{{post.title}}</a>
