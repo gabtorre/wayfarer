@@ -3,22 +3,28 @@
 <!-- Content -->
 <div class="mt-5 w-100 container-fluid">
   <div class="row">
-    <div class="col-4">
+    <div class="col-sm-3">
       <h1>Cities</h1>
-      <div class="card">
-        <ul class="list-group list-group-flush">
-          {% for city in cities.all %}
+      {% for city in cities.all %}
+        <div class="card article">
           <a href="{% url 'main' city.id %}">
-            <li class="list-group-item">
-              <img src="{{city.image}}" width="100px" height="100px" />
-              <h3 class="float-right mr-4 mt-4">{{city.name}}</h3>
-            </li>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <img class="img-thumb" src="https://picsum.photos/100" />
+              </div>
+              <div class="col-sm-7">
+                <h3 class="article-title mt-4">{{city.name}}</h3>
+              </div>
+            </div>
+          </div>
           </a>
-          {% endfor %}
-        </ul>
-      </div>
+        </div>
+      {% endfor %}
     </div>
-    <div class="col-8">
+
+    <!-- City Header -->
+    <div class="col-sm-9">
       <div class="box">
         <img src="{{c_city.image}}" width="100%" />
         <div class="img-title">
@@ -49,18 +55,28 @@
       
 
       
+      <!-- City Posts -->
 
-      <div class="card">
-        <ul class="list-group list-group-flush">
           {% for post in posts.all %}
-          <li class="list-group-item">
-            <h3><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
-            <p>{{post.created_date}}</p>
-            <p>{{post.content}}</p>
-          </li>
+          <div class="card article">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <img class="img-thumb" src="https://picsum.photos/200" />
+                </div>
+                <div class="col-sm-9">
+                  <h3 class="article-title"><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
+                  <p>{{post.created_date}}</p>
+                  <p>{{post.content}}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+            
           {% endfor %}
-        </ul>
-      </div>
+
     </div>
   </div>
 </div>

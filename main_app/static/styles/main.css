@@ -6,7 +6,7 @@
     --mid-red: #FF4F43;
     --light-red: #9E201A;
     --dark-red: #5A1311;
-    --light-blue: #109098;
+    --light-blue: #3FBDC2;
     --dark-blue: #2F5255;
   }
 
@@ -133,4 +133,25 @@ h1 {
     padding-right: 0.5rem;
     padding-left: 2.5rem;
 }
+}
+
+.article {
+  margin-bottom: 20px;
+  background-color: var(--light-blue);
+  border-radius: 0px;
+}
+
+.article-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.article-title a {
+  color: var(--dark-gray);
+}
+
+.img-thumb {
+  max-width: 100%;
+  height: auto;
 }
