@@ -14,6 +14,10 @@
   color: var(--black);
 }
 
+.mid-red {
+  color: var(--mid-red);
+}
+
 .logo {
   font-weight: 800;
   font-size: 40px;

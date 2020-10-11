@@ -2,14 +2,21 @@
 
 {% block content %}
 
-{{post.title}}
-{{post.content}}
-{{post.user.profile.name}}
+<div class="container">
 
-{% if post.user.id == request.user.id  %}
-<a class="nav-item nav-link" data-toggle="modal" data-target="#editPostModal" href="#">Edit</a>
-<a class="nav-item nav-link" data-toggle="modal" data-target="#deletePostModal" href="#">Delete</a>
-{% endif %}
+  <div class="card mt-5">
+    <div class="card-body">
+      <img class="img-fluid" src="{{ post.image.url }}" alt="">
+      <h1 class="mt-4 mid-red">{{post.title}}</h1>
+      <p>{{post.user.profile.name}}</p>
+      {% if post.user.id == request.user.id  %}
+        <a class="nav-item nav-link" data-toggle="modal" data-target="#editPostModal" href="#">Edit</a>
+        <a class="nav-item nav-link" data-toggle="modal" data-target="#deletePostModal" href="#">Delete</a>
+      {% endif %}
+      <p>{{post.content}}</p>
+    </div>
+  </div>
+</div>
 
 
 <!-- edit post Modal -->

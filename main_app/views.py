@@ -49,13 +49,15 @@ def login_redirect(request):
 @login_required(login_url='/login_redirect',)
 def new_post(request, city_id):
     if request.method == 'POST':
-        post_form = Post_Form(request.POST)
+        post_form = Post_Form(request.POST, request.FILES)
         if post_form.is_valid():
             new_post = post_form.save(commit=False)
             new_post.user = request.user
             new_post.city = City.objects.get(id=city_id)
+            new_post.image = request.FILES['image']
             new_post.save()
         return redirect('main', city_id)
+
 
 
 # view/update post

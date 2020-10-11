@@ -29,7 +29,7 @@ class City(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=500)
-    image = models.CharField(max_length=300)
+    image = models.ImageField(null=True, blank=True, upload_to = 'images')
     created_date = models.DateTimeField('date created', default=timezone.now)
     user = models.ForeignKey(User, on_delete=(models.CASCADE))
     city = models.ForeignKey(City, on_delete=(models.CASCADE))

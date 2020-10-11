@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<!-- Content -->
+<!-- Cities Menu -->
 <div class="mt-5 w-100 container-fluid">
   <div class="row">
     <div class="col-sm-3">
@@ -52,9 +52,6 @@
         </div>
 
 
-      
-
-      
       <!-- City Posts -->
 
           {% for post in posts.all %}
@@ -107,7 +104,7 @@
       </div>
       <div class="modal-body">
         <!-- new post Form -->
-        <form method="POST" action="{% url 'new_post' c_city.id %}">
+        <form enctype="multipart/form-data" method="POST" action="{% url 'new_post' c_city.id %}">
           {% csrf_token %} {{ post_form.as_p }}
           <input type="submit" class="btn" value="post" />
         </form>
