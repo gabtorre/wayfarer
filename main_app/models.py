@@ -4,6 +4,8 @@ from django_fields import DefaultStaticImageField
 from django.core.files.storage import FileSystemStorage
 fs=FileSystemStorage(location='media/images')
 from django.utils import timezone
+from django.urls import reverse
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -21,9 +23,18 @@ class City(models.Model):
     name = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
     image = models.CharField(max_length=300)
+    slug = models.SlugField(max_length=25, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = self.slug or slugify(self.name)
+        return super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('main', kwargs={'slug':self.slug})
 
     def __str__(self):
         return f"{self.name}, {self.country}"
+
 
 
 class Post(models.Model):
