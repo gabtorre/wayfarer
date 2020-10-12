@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 # internal
 from .forms import Profile_Form, Post_Form
 from .models import Post, City
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 """ TODO handle error messages """
@@ -84,10 +86,22 @@ def post_delete(request, post_id):
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
-    posts = Post.objects.filter(city=city_id)
+    # posts = Post.objects.filter(city=city_id)
+    post_list = Post.objects.filter(city=city_id)
+    paginator = Paginator(post_list, 2)
+    page = request.GET.get('page')
+ 
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+ 
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
     post_form = Post_Form()
     #posts = Post.objects.all()
-    context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form}
+    context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form, 'page':page}
     return render(request, 'main.html', context)
 
 
