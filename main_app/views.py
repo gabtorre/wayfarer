@@ -39,28 +39,33 @@ def home(request):
             context = {'signup_errors':signup_form.errors}
             return render(request, 'home.html', context)
 
-    return render(request, 'home.html')
+    return render(request, 'home.html', {"is_true": False})
 
+def login_redirect(request):
+    home(request)
+    return render(request, 'home.html', {"is_true": True})
 
 # post create
-@login_required
+@login_required(login_url='/login_redirect',)
 def new_post(request, city_id):
     if request.method == 'POST':
-        post_form = Post_Form(request.POST)
+        post_form = Post_Form(request.POST, request.FILES)
         if post_form.is_valid():
             new_post = post_form.save(commit=False)
             new_post.user = request.user
             new_post.city = City.objects.get(id=city_id)
+            new_post.image = request.FILES['image']
             new_post.save()
         return redirect('main', city_id)
 
 
+
 # view/update post
-@login_required
+@login_required(login_url='/login_redirect',)
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        post_form = Post_Form(request.POST, instance=post)
+        post_form = Post_Form(request.POST, request.FILES, instance=post)
         if post_form.is_valid:
             post_form.save()
         return redirect('post', post_id)
@@ -70,16 +75,16 @@ def post(request, post_id):
     return render(request, 'Post/post.html', context)
 
 # delete post
-@login_required
+@login_required(login_url='/login_redirect',)
 def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('profile')
 
-@login_required
+@login_required(login_url='/login_redirect',)
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
-    posts = Post.objects.filter(city=city_id).order_by('-created_date')
+    posts = Post.objects.filter(city=city_id)
     post_form = Post_Form()
     #posts = Post.objects.all()
     context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form}
@@ -89,7 +94,8 @@ def main(request, city_id):
 # auth views
 
 # show profile
-@login_required
+# @login_required
+@login_required(login_url='/login_redirect',)
 def profile(request):
     posts = Post.objects.filter(user=request.user.id)
     context = {'posts':posts}
@@ -113,7 +119,7 @@ def profile(request):
 
 
 # edit and update
-@login_required
+@login_required(login_url='/login_redirect',)
 def profile_edit(request):
     user = request.user
     if request.method == 'POST':
@@ -140,3 +146,7 @@ def profile_edit(request):
             profile_form = Profile_Form()
             context = {'profile_form': profile_form}
             return render(request, 'account/edit.html', context)
+
+
+# create url for login redirect
+# redirect to home view that loads popup on page load
