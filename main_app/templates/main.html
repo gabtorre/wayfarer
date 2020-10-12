@@ -1,4 +1,6 @@
 {% extends 'base.html' %} {% block content %}
+
+{% load humanize %}
 <!-- Cities Menu -->
 <div class="mt-5 w-100 container-fluid">
   <div class="row">
@@ -63,8 +65,9 @@
                 </div>
                 <div class="col-sm-9">
                   <h3 class="article-title"><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
-                  <p>{{post.created_date}}</p>
-                  <p>{{post.content|truncatewords:30|linebreaks}}</p>
+                  <p>{{post.created_date|naturaltime}}</p>
+                  <p>{{post.content|truncatechars:1000|linebreaks}}</p>
+                  <a href="{% url 'post' post.id %}">View More</a>
                 </div>
               </div>
 

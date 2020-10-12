@@ -28,13 +28,14 @@
 
 <!-- user posts -->
 <div class="container">
-    <div class="row row-cols-1 row-cols-md-3">
+    <div class="row">
         {% for post in posts.all %}
-        <div class="col mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card card-posts mt-5 h-100">
                 <div class="card-header">{{post.city}}</div>
                 <div class="card-body">
-                    <a class="card-title" href="{% url 'post' post.id %}">{{post.title}}</a>
+                    <img class="img-thumb z-depth-2 mx-auto" width="150px" alt="100x100" src="{{ post.image.url }}"  data-holder-rendered="true">
+                    <p><a class="card-title" href="{% url 'post' post.id %}">{{post.title}}</a></p>
                     <p class="card-text">{{post.content|truncatewords:"10"}}</p>
                 </div>
             </div>

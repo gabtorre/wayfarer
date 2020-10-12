@@ -58,7 +58,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -67,16 +67,23 @@
             
             <!-- Login Form -->
             <form method="POST" action="{% url 'home' %}">
+              <input type="hidden" name="form_name" value="login_form">
               {% csrf_token %}
               {{ auth_form.as_p }}
-              <input type="submit" class="btn" value="login">
               <input type="hidden" name="next" value="{{ next }}">
-            </form>
+
+              <!-- login error handle -->
+              {%if login_errors %}
+                <p>Username or password is incorrect.</p>
+              {% endif %}
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <input type="submit" class="btn btn-primary btn-blue" value="Sign In">
           </div>
+            </form>
+
         </div>
       </div>
     </div>
@@ -98,19 +105,20 @@
               <input type="hidden" name="form_name" value="signup_form">
               {% csrf_token %}
               {{ signup_form.as_p }}
-              <input type="submit" class="btn" value="signup">
 
               <!-- signup error handle -->
               {%if signup_errors %}
                 <p> {{signup_errors}}</p>
               {% endif %}
-
-            </form>
             
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+
+            <input type="submit" class="btn btn-primary btn-blue" value="Sign Up">
+
+            </form>
+
           </div>
         </div>
       </div>
