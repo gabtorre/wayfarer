@@ -56,7 +56,9 @@ def new_post(request, city_id):
             new_post = post_form.save(commit=False)
             new_post.user = request.user
             new_post.city = City.objects.get(id=city_id)
-            new_post.image = request.FILES['image']
+            if request.FILES:
+                new_post.image = request.FILES['image']
+            
             new_post.save()
         return redirect('main', city_id)
 
@@ -138,17 +140,22 @@ def profile_edit(request):
     user = request.user
     if request.method == 'POST':
         try:
-            profile_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
+            profile_form = Profile_Form(request.POST, instance=user.profile)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
+                if request.FILES:
+                    new_profile.image = request.FILES['image']
+                else:
+                    new_profile.image = 'images/default.jpg'
                 new_profile.save()
         except:
-            profile_form = Profile_Form(request.POST, request.FILES)
+            profile_form = Profile_Form(request.POST)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
-                profile.image = request.FILES['image']
+                if request.FILES:
+                    new_profile.image = request.FILES['image']
                 new_profile.save()
         return redirect('profile')
     else:
