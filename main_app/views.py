@@ -45,6 +45,7 @@ def home(request):
             return render(request, 'home.html', context)
     else:
         form = AuthenticationForm()
+        return render(request, 'home.html')
 
 
 
@@ -87,6 +88,7 @@ def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('profile')
 
+#render main page
 @login_required(login_url='/login_redirect',)
 def main(request, city_id):
     cities = City.objects.all()
