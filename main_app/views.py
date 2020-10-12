@@ -18,18 +18,11 @@ def home(request):
 
     error_message = ''
 
-    #   Login Post
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = AuthenticationForm()
+
 
     #   Signup Post
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['form_name'] == 'signup_form':  #and request.POST['form_name'] == 'signup_form'
+        print(f"request {request.POST}")
         signup_form = UserCreationForm(request.POST)
         if signup_form.is_valid():
             user = signup_form.save()
@@ -39,7 +32,21 @@ def home(request):
             context = {'signup_errors':signup_form.errors}
             return render(request, 'home.html', context)
 
-    return render(request, 'home.html', {"is_true": False})
+    #   Login Post
+    if request.method == 'POST' and request.POST['form_name'] == 'login_form':
+        print(f"request {request.POST}")
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+        else:
+            context = {'login_errors': form.errors}
+            return render(request, 'home.html', context)
+    else:
+        form = AuthenticationForm()
+
+
 
 def login_redirect(request):
     home(request)

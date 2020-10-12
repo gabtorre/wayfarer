@@ -20,10 +20,10 @@
   </head>
   <body>
     <!-- Main Menu -->
-    <nav class="navbar navbar-expand-lg dark-red-bg navbar-light">
+    <nav class="navbar navbar-expand-lg dark-red-bg menu-height">
     <div class="container-fluid w-100">
-        <a class="navbar-brand logo" href="{% url 'home' %}">
-            <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             Wayfarer
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,10 +67,15 @@
             
             <!-- Login Form -->
             <form method="POST" action="{% url 'home' %}">
+            <input type="hidden" name="form_name" value="login_form">
               {% csrf_token %}
               {{ auth_form.as_p }}
               <input type="submit" class="btn" value="login">
               <input type="hidden" name="next" value="{{ next }}">
+              {%if login_errors %}
+                <p>Username or Password is incorrect</p>
+              {% endif %}
+
             </form>
           </div>
           <div class="modal-footer">
@@ -95,7 +100,7 @@
             
             <!-- Signup Form -->
             <form method="post" action="{% url 'home' %}">
-              <input type="hidden" name="form_name" value="signup_form">
+            <input type="hidden" name="form_name" value="signup_form">
               {% csrf_token %}
               {{ signup_form.as_p }}
               <input type="submit" class="btn" value="signup">
