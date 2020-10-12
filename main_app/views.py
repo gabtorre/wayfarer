@@ -65,7 +65,7 @@ def new_post(request, city_id):
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        post_form = Post_Form(request.POST, instance=post)
+        post_form = Post_Form(request.POST, request.FILES, instance=post)
         if post_form.is_valid:
             post_form.save()
         return redirect('post', post_id)
@@ -84,7 +84,7 @@ def post_delete(request, post_id):
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
-    posts = Post.objects.filter(city=city_id).order_by('-created_date')
+    posts = Post.objects.filter(city=city_id)
     post_form = Post_Form()
     #posts = Post.objects.all()
     context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form}

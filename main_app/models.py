@@ -27,8 +27,8 @@ class City(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=50)
-    content = models.TextField(max_length=500)
+    title = models.CharField(max_length=200)
+    content = models.TextField(max_length=2000, blank=False)
     image = models.ImageField(null=True, blank=True, upload_to = 'images')
     created_date = models.DateTimeField('date created', default=timezone.now)
     user = models.ForeignKey(User, on_delete=(models.CASCADE))
@@ -36,6 +36,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    class Meta:
+        ordering = ['-created_date']
 
 
     
