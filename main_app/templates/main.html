@@ -61,14 +61,19 @@
             <div class="card-body">
 
               <div class="row">
-                <div class="col-sm-3">
-                  <img class="img-thumb" src="{{ post.image.url }}" />
+                <div class="col-sm-2">
+                  <img width="100px" class="img-thumb rounded-circle" src="{{ post.user.profile.image.url }}" />
+                  <p><a href="">{{ post.user.profile.name }}</a></p>
+                  <p>{{ post.user.profile.city }}</p>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-sm-7">
                   <h3 class="article-title"><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
                   <p>{{post.created_date|naturaltime}}</p>
                   <p>{{post.content|truncatechars:1000|linebreaks}}</p>
                   <a href="{% url 'post' post.id %}">View More</a>
+                </div>
+                <div class="col-sm-3">
+                  <img class="img-thumb" src="{{ post.image.url }}" />
                 </div>
               </div>
 
