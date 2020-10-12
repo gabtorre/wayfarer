@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
 from pathlib import Path
 import os
 
@@ -133,3 +132,4 @@ DEFAULT_IMAGE_PATH = '/images/default.png'
 LOGIN_REDIRECT_URL = '/account/profile'
 
 LOGOUT_REDIRECT_URL = '/'
+
