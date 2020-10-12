@@ -126,17 +126,20 @@ def profile_edit(request):
     user = request.user
     if request.method == 'POST':
         try:
-            profile_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
+            profile_form = Profile_Form(request.POST, instance=user.profile)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
+                if request.FILES['image']:
+                    profile.image = request.FILES['image']
                 new_profile.save()
         except:
-            profile_form = Profile_Form(request.POST, request.FILES)
+            profile_form = Profile_Form(request.POST)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
-                profile.image = request.FILES['image']
+                if request.FILES['image']:
+                    profile.image = request.FILES['image']
                 new_profile.save()
         return redirect('profile')
     else:
@@ -149,9 +152,6 @@ def profile_edit(request):
             context = {'profile_form': profile_form}
             return render(request, 'account/edit.html', context)
 
-<<<<<<< HEAD
-=======
 
 # create url for login redirect
 # redirect to home view that loads popup on page load
->>>>>>> submaster
