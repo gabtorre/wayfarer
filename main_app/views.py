@@ -11,7 +11,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # internal
 from .forms import Profile_Form, Post_Form
 from .models import Post, City
-from . import filters
 # Create your views here.
 
 """ TODO handle error messages """
