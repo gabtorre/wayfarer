@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 # internal
 from .forms import Profile_Form, Post_Form
 from .models import Post, City
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 """ TODO handle error messages """
@@ -54,7 +56,9 @@ def new_post(request, city_id):
             new_post = post_form.save(commit=False)
             new_post.user = request.user
             new_post.city = City.objects.get(id=city_id)
-            new_post.image = request.FILES['image']
+            if request.FILES:
+                new_post.image = request.FILES['image']
+            
             new_post.save()
         return redirect('main', city_id)
 
@@ -84,10 +88,22 @@ def post_delete(request, post_id):
 def main(request, city_id):
     cities = City.objects.all()
     city = City.objects.get(id=city_id)
-    posts = Post.objects.filter(city=city_id)
+    # posts = Post.objects.filter(city=city_id)
+    post_list = Post.objects.filter(city=city_id)
+    paginator = Paginator(post_list, 2)
+    page = request.GET.get('page')
+ 
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+ 
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
     post_form = Post_Form()
     #posts = Post.objects.all()
-    context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form}
+    context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form, 'page':page}
     return render(request, 'main.html', context)
 
 
@@ -124,17 +140,22 @@ def profile_edit(request):
     user = request.user
     if request.method == 'POST':
         try:
-            profile_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
+            profile_form = Profile_Form(request.POST, instance=user.profile)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
+                if request.FILES:
+                    new_profile.image = request.FILES['image']
+                else:
+                    new_profile.image = 'images/default.jpg'
                 new_profile.save()
         except:
-            profile_form = Profile_Form(request.POST, request.FILES)
+            profile_form = Profile_Form(request.POST)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
-                profile.image = request.FILES['image']
+                if request.FILES:
+                    new_profile.image = request.FILES['image']
                 new_profile.save()
         return redirect('profile')
     else:
