@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
+from django.views.generic import ListView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # internal
 from .forms import Profile_Form, Post_Form
