@@ -13,12 +13,12 @@
             <img class="img-fluid rounded mt-3" src="https://d1bvwpcbxq9v24.cloudfront.net/NMS0HM9H/Sunset-Skyline-Header-Image.-Courtesty-Austin-Convention-Visitors-Bureau-Credit-Geoff-Duncan_exp-May-2020.jpg" alt="">
             <div class="card card-profile p-2 w-25 mx-auto">
                 <img class="img-thumbnail rounded-circle z-depth-2 mx-auto" width="150px" alt="100x100" src="{{ user.profile.image.url }}"  data-holder-rendered="true">
-                {{user.profile.name}}
+                {{t_user.profile.name}}
                 <br> 
-                Current City: {{user.profile.city}}
+                Current City: {{t_user.profile.city}}
                 <br>
-                Date Joined: {{user.date_joined|date:'m-d-Y'}}
-                    {% if user.profile.id == request.user.profile.id  %}
+                Date Joined: {{t_user.date_joined|date:'m-d-Y'}}
+                    {% if user.profile.id == request.t_user.profile.id  %}
                         <a href="{% url 'profile_edit' %}">edit</a>
                     {% endif %}
             </div>

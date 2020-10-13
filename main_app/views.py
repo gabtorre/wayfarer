@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # internal
 from .forms import Profile_Form, Post_Form
-from .models import Post, City
+from .models import Post, City, Profile
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
@@ -120,9 +120,14 @@ def city(request):
 # show profile
 # @login_required
 @login_required(login_url='/login_redirect',)
-def profile(request):
-    posts = Post.objects.filter(user=request.user.id)
-    context = {'posts':posts}
+def profile(request, slug):
+    t_user = Profile.objects.get(slug=slug)
+    posts = Post.objects.filter(user=t_user.id)
+    if t_user == request.user:
+        auth=True
+    else:
+        auth=False
+    context = {'posts':posts, 't_user':t_user, 'auth':auth}
     return render(request, 'account/profile.html', context)
 
 
