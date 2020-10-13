@@ -11,8 +11,7 @@ from django.template.defaultfilters import slugify
 # Make emails unique thanks to Quin
 
 User._meta.get_field('email')._unique=True
-
-
+User._meta.get_field('email')._blank=True
 
 # Create your models here.
 
@@ -51,7 +50,6 @@ class City(models.Model):
         return f"{self.name}, {self.country}"
 
 
-
 class Post(models.Model):
     title = models.CharField(max_length=200, blank=False)
     content = models.TextField(max_length=2000, blank=False)
@@ -67,6 +65,17 @@ class Post(models.Model):
         ordering = ['-created_date']
 
 
+class Comment(models.Model):
+    comment = models.TextField(max_length=200, blank=False)
+    created_date = models.DateTimeField('date created', default=timezone.now)
+    user = models.ForeignKey(User, on_delete=(models.CASCADE))
+    post = models.ForeignKey(Post, on_delete=(models.CASCADE))
+
+    def __str__(self):
+        return f"{self.comment}"
+
+    class Meta:
+        ordering = ['-created_date']
     
 
 
