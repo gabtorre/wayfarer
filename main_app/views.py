@@ -38,7 +38,7 @@ def home(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
         else:
             context = {'login_errors': form.errors}
             return render(request, 'home.html', context)
@@ -94,7 +94,7 @@ def main(request, slug):
     city = City.objects.get(slug=slug)
     # posts = Post.objects.filter(city=city_id)
     post_list = Post.objects.filter(city=city.id)
-    paginator = Paginator(post_list, 2)
+    paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
  
     try:
