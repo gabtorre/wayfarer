@@ -77,7 +77,7 @@
 
               <!-- login error handle -->
               {%if login_errors %}
-                <p>Username or password is incorrect.</p>
+              <p class="red-text">Username or password is incorrect.</p>
               {% endif %}
 
           </div>
@@ -111,7 +111,7 @@
               
               <!-- signup error handle -->
               {%if signup_errors %}
-                <p> {{signup_errors}}</p>
+                <p class="red-text"> {{signup_errors}}</p>
               {% endif %}
             
           </div>

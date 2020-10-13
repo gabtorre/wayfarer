@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Profile, Post
+from .models import Profile, Post, Comment
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -14,6 +14,11 @@ class Post_Form(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'image']
+
+class Comment_Form(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
 
 # found this online at  https://stackoverflow.com/questions/32860296/how-do-i-extend-usercreationform-to-include-email-field
 class UserCreationForm(UserCreationForm):

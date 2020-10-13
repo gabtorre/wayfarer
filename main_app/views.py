@@ -10,8 +10,8 @@ from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # internal
-from .forms import Profile_Form, Post_Form
-from .models import Post, City, Profile
+from .forms import Profile_Form, Post_Form, Comment_Form
+from .models import Post, City, Profile, Comment
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -85,7 +85,9 @@ def post(request, post_id):
         return redirect('post', post_id)
 
     post_form = Post_Form(instance=post)
-    context = {'post':post, 'post_form': post_form}
+    comment_form = Comment_Form()
+    comments = Comment.objects.filter(post=post_id)
+    context = {'post':post, 'post_form': post_form, 'comment_form': comment_form, 'comments': comments}
     return render(request, 'Post/post.html', context)
 
 # delete post
@@ -170,3 +172,13 @@ def profile_edit(request):
             context = {'profile_form': profile_form}
             return render(request, 'account/edit.html', context)
 
+
+@login_required(login_url='/login_redirect',)
+def post_comment(request, post_id):
+    comment_form = Comment_Form(request.POST)
+    if comment_form.is_valid():
+        new_comment = comment_form.save(commit=False)
+        new_comment.user = request.user
+        new_comment.post = Post.objects.get(id=post_id)
+        new_comment.save()
+    return redirect('post', post_id)
