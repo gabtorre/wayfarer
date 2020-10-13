@@ -9,7 +9,7 @@
       <h1>Cities</h1>
       {% for city in cities.all %}
         <div class="card article">
-          <a href="{% url 'main' city.id %}">
+          <a href="{% url 'main' city.slug %}">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-5">
