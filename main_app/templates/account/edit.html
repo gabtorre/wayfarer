@@ -4,10 +4,16 @@
 
 {% load crispy_forms_tags %}
 
-<form enctype="multipart/form-data" action="{% url 'profile_edit' %}" method='POST'>
-    {% csrf_token %}
-    {{ profile_form|crispy }}
-    <input type="submit" value="Update">
-</form>
+<div class="container mb-5">
+    <div class="card mt-5">
+      <div class="card-body">
+        <form enctype="multipart/form-data" action="{% url 'profile_edit' %}" method='POST' class='w-50 mx-auto h-100'>
+            {% csrf_token %}
+            {{ profile_form|crispy }}
+            <input type="submit" value="Update" class="btn btn-primary btn-lg btn-block btn-blue">
+        </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -100,7 +100,7 @@ def main(request, slug):
     cities = City.objects.all()
     city = City.objects.get(slug=slug)
     # posts = Post.objects.filter(city=city_id)
-    post_list = Post.objects.filter(city=city_id)
+    post_list = Post.objects.filter(city=city.id)
     paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
  
