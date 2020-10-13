@@ -67,10 +67,16 @@
             
             <!-- Login Form -->
             <form method="POST" action="{% url 'home' %}">
+            <input type="hidden" name="form_name" value="login_form">
               {% csrf_token %}
               {{ auth_form.as_p }}
               <input type="submit" class="btn" value="login">
               <input type="hidden" name="next" value="{{ next }}">
+
+              <!-- login error handle -->
+              {%if login_errors %}
+              <p>Username or password was incorrect.</p>
+              {% endif %}
             </form>
           </div>
           <div class="modal-footer">
