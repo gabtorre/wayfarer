@@ -2,9 +2,11 @@
 
 {% block content %}
 
+{% load crispy_forms_tags %}
+
 <form enctype="multipart/form-data" action="{% url 'profile_edit' %}" method='POST'>
     {% csrf_token %}
-    {{ profile_form.as_p }}
+    {{ profile_form|crispy }}
     <input type="submit" value="Update">
 </form>
 
