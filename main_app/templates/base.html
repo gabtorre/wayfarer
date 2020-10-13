@@ -69,7 +69,7 @@
             
             <!-- Login Form -->
             <form method="POST" action="{% url 'home' %}">
-              <input type="hidden" name="form_name" value="login_form">
+            <input type="hidden" name="form_name" value="login_form">
               {% csrf_token %}
               {{ auth_form|crispy}}
               <input type="hidden" name="next" value="{{ next }}">

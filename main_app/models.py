@@ -4,10 +4,13 @@ from django_fields import DefaultStaticImageField
 from django.core.files.storage import FileSystemStorage
 fs=FileSystemStorage(location='media/images')
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 
 # Create your models here.
+
+
 
 class Profile(models.Model):
     name = models.CharField(max_length=50)
