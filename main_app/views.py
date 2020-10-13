@@ -1,8 +1,8 @@
 # external
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
 from django.views.generic import ListView
@@ -15,15 +15,10 @@ from .models import Post, City, Profile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
-""" TODO handle error messages """
+
 
 # main views
 def home(request):
-
-    error_message = ''
-
-
-
     #   Signup Post
     if request.method == 'POST' and request.POST['form_name'] == 'signup_form':  #and request.POST['form_name'] == 'signup_form'
         print(f"request {request.POST}")
@@ -43,12 +38,11 @@ def home(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
         else:
             context = {'login_errors': form.errors}
             return render(request, 'home.html', context)
     else:
-        form = AuthenticationForm()
         return render(request, 'home.html')
 
 
@@ -68,7 +62,6 @@ def new_post(request, city_id):
             new_post.city = City.objects.get(id=city_id)
             if request.FILES:
                 new_post.image = request.FILES['image']
-            
             new_post.save()
         return redirect('main', city_id)
 
@@ -101,7 +94,7 @@ def main(request, slug):
     city = City.objects.get(slug=slug)
     # posts = Post.objects.filter(city=city_id)
     post_list = Post.objects.filter(city=city.id)
-    paginator = Paginator(post_list, 2)
+    paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
  
     try:

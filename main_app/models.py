@@ -4,10 +4,13 @@ from django_fields import DefaultStaticImageField
 from django.core.files.storage import FileSystemStorage
 fs=FileSystemStorage(location='media/images')
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 
 # Create your models here.
+
+
 
 class Profile(models.Model):
     name = models.CharField(max_length=50)
@@ -46,7 +49,7 @@ class City(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, blank=False)
     content = models.TextField(max_length=2000, blank=False)
     image = models.ImageField(default = 'images/default.jpg', null=True, blank=True, upload_to = 'images')
     created_date = models.DateTimeField('date created', default=timezone.now)
