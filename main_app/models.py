@@ -8,9 +8,13 @@ from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 
+# Make emails unique thanks to Quin
+
+User._meta.get_field('email')._unique=True
+
+
+
 # Create your models here.
-
-
 
 class Profile(models.Model):
     name = models.CharField(max_length=50)

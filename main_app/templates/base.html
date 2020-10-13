@@ -25,7 +25,6 @@
     <nav class="navbar navbar-expand-lg dark-red-bg navbar-light">
     <div class="container-fluid w-100">
         <a class="navbar-brand logo" href="{% url 'home' %}">
-            <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
             Wayfarer
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +37,9 @@
             <p class="nav-item nav-link">Welcome {{user.profile.name}}!</p>
 
             <a class="nav-item nav-link" href="/cities/">Cities</a>
+            {% if user.profile.slug %}
             <a class="nav-item nav-link" href="{% url 'profile' user.profile.slug %}">Profile</a>
+            {% endif %}
             <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
             {% else %}
             <a class="nav-item nav-link" data-toggle="modal" data-target="#loginModal" href="#">Sign In</a>
@@ -107,8 +108,7 @@
               <input type="hidden" name="form_name" value="signup_form">
               {% csrf_token %}
               {{ signup_form|crispy }}
-              <!-- {{ signup_form.as_p }} -->
-
+              
               <!-- signup error handle -->
               {%if signup_errors %}
                 <p> {{signup_errors}}</p>
