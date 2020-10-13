@@ -145,9 +145,9 @@ h1 {
   background: var(--red);
 }
 
-.btn-primary:active, .btn-primary:visited {
+/* .btn-primary:active, .btn-primary:visited {
   background: var(--light-red) !important;
-}
+} */
 
 .navbar-light .navbar-nav .nav-link {
   color: #fff;
@@ -226,6 +226,8 @@ h1 {
   width: 175px;
   height: 175px;
   object-fit: cover;
+}
+
 .red-text {
   color: red;
 }

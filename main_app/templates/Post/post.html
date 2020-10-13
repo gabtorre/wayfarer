@@ -56,7 +56,11 @@
                 <div class="col">
                   <img class="img-thumb rounded-circle" width="80px" height="80px" src="{{comment.user.profile.image.url}}" alt="">
                 <p>{{comment.user.profile.name}}</p>
-                <p>{{comment.comment}}</p> 
+                <p>{{comment.created_date}}</p>
+                <p>{{comment.comment}}</p>
+                {% if request.user == comment.user %}
+                <p><a class="btn btn-primary btn-lg btn-blue" href="{% url 'comment_edit' comment.id%}"> Edit Comment</a></p> 
+                {% endif %}
                 </div>
               </div>
             </div>
