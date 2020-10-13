@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from .forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
@@ -13,14 +14,14 @@ from .forms import Profile_Form, Post_Form
 from .models import Post, City, Profile
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 # Create your views here.
-
-
 
 # main views
 def home(request):
     #   Signup Post
-    if request.method == 'POST' and request.POST['form_name'] == 'signup_form':  #and request.POST['form_name'] == 'signup_form'
+    if request.method == 'POST' and request.POST['form_name'] == 'signup_form':  
         print(f"request {request.POST}")
         signup_form = UserCreationForm(request.POST)
         if signup_form.is_valid():
@@ -38,7 +39,7 @@ def home(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('profile')
+            return redirect('profile', user.profile.slug)
         else:
             context = {'login_errors': form.errors}
             return render(request, 'home.html', context)
@@ -63,7 +64,8 @@ def new_post(request, city_id):
             if request.FILES:
                 new_post.image = request.FILES['image']
             new_post.save()
-        return redirect('main', city_id)
+        city = City.objects.get(id=city_id)
+        return redirect('main', city.slug)
 
 
 
@@ -85,14 +87,13 @@ def post(request, post_id):
 @login_required(login_url='/login_redirect',)
 def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
-    return redirect('profile')
+    return redirect('profile', request.user.profile.slug)
 
 #render main page
 @login_required(login_url='/login_redirect',)
 def main(request, slug):
     cities = City.objects.all()
     city = City.objects.get(slug=slug)
-    # posts = Post.objects.filter(city=city_id)
     post_list = Post.objects.filter(city=city.id)
     paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
@@ -106,7 +107,6 @@ def main(request, slug):
         posts = paginator.page(paginator.num_pages)
 
     post_form = Post_Form()
-    #posts = Post.objects.all()
     context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form, 'page':page}
     return render(request, 'main.html', context)
 
@@ -118,10 +118,10 @@ def city(request):
 # auth views
 
 # show profile
-# @login_required
 @login_required(login_url='/login_redirect',)
 def profile(request, slug):
-    t_user = Profile.objects.get(slug=slug)
+    t_profile = Profile.objects.get(slug=slug)
+    t_user = User.objects.get(id=t_profile.user_id)
     posts = Post.objects.filter(user=t_user.id)
     if t_user == request.user:
         auth=True
@@ -129,22 +129,6 @@ def profile(request, slug):
         auth=False
     context = {'posts':posts, 't_user':t_user, 'auth':auth}
     return render(request, 'account/profile.html', context)
-
-
-# sign up
-# def signup(request):
-#     error_message = ''
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             return redirect('profile')
-#         else:
-#             error_message = 'Invalid sign up - try again'
-#     form = UserCreationForm()
-#     context = {'form': form, 'error_message': error_message}
-#     return render(request, 'regristration/signup.html', context)
 
 
 # edit and update
@@ -170,7 +154,7 @@ def profile_edit(request):
                 if request.FILES:
                     new_profile.image = request.FILES['image']
                 new_profile.save()
-        return redirect('profile')
+        return redirect('profile', request.user.profile.slug)
     else:
         try:
             profile_form = Profile_Form(instance=user.profile)
@@ -181,6 +165,3 @@ def profile_edit(request):
             context = {'profile_form': profile_form}
             return render(request, 'account/edit.html', context)
 
-
-# create url for login redirect
-# redirect to home view that loads popup on page load

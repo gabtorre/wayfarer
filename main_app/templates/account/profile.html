@@ -17,9 +17,9 @@
                 <br> 
                 Current City: {{t_user.profile.city}}
                 <br>
-                Date Joined: {{t_user.date_joined|date:'m-d-Y'}}
-                    {% if user.profile.id == request.t_user.profile.id  %}
-                        <a href="{% url 'profile_edit' %}">edit</a>
+                Joined: {{t_user.date_joined|date:'m-d-Y'}}
+                    {% if t_user.profile.slug  %}
+                <a href="{% url 'profile_edit' %}">edit</a>
                     {% endif %}
             </div>
         </div>
