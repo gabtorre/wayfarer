@@ -16,5 +16,5 @@ urlpatterns = [
     path('profile/<slug:slug>', views.profile, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('comment/<int:post_id>/', views.post_comment, name='comment')
+    path('comment/<int:post_id>/', views.post_comment, name='comment'),
 ] +static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

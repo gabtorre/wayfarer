@@ -29,7 +29,7 @@
           data-target="#deletePostModal"
           class="btn btn-primary btn-lg btn-block btn-red">Delete</button>
         </div>
-      {% endif %}  
+        {% endif %}  
       </div>
 
       <p>{{post.user.profile.name}}</p>
@@ -37,27 +37,32 @@
       <p>{{post.content}}</p>
 
       <div class="col">
-        <h1 class="blue">Comments</h1>
+        <div class="row mt-3 mb-3">
+          <div class="col-9">
+            <h1 class="blue">Comments</h1>
+          </div>
+          <div class="col-3">
+            <button 
+          type="button"
+          data-toggle="modal"
+          data-target="#commentModal"
+          class="btn btn-primary btn-lg btn-blue w-100">Add Comment</button>
+          </div> 
+        </div>
         {% for comment in comments.all %}
           <div class="card mb-4">
-            <div class="card-body">
+            <div class="card-body comment-card">
               <div class="row">
                 <div class="col">
-                  <img class="img-thumb" width="80px" src="{{comment.user.profile.image.url}}" alt="">
+                  <img class="img-thumb rounded-circle" width="80px" height="80px" src="{{comment.user.profile.image.url}}" alt="">
                 <p>{{comment.user.profile.name}}</p>
-                <p>{{comment.comment}}</p>
+                <p>{{comment.comment}}</p> 
                 </div>
               </div>
             </div>
           </div>
         {% endfor %}
       </div>
-
-      <button 
-          type="button"
-          data-toggle="modal"
-          data-target="#commentModal"
-          class="btn btn-primary btn-lg btn-blue mx-auto mt-3">Add Comment</button>
     </div>
   </div>
 </div>
@@ -143,4 +148,5 @@
         </div>
       </div>
     </div>
+
 {% endblock %}
