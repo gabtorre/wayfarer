@@ -14,6 +14,14 @@ class Profile(models.Model):
     city = models.CharField(max_length=50)
     user = models.OneToOneField(User, on_delete=(models.CASCADE))
     image = models.ImageField(null=True, blank=True, upload_to = 'images', default = 'images/default.jpg')
+    slug = models.SlugField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = self.slug or slugify(self.user.username)
+        return super().save(*args, **kwargs)
+
+        def get_absolute_url(self):
+            return reverse('profile', kwargs={'slug':self.slug})
     
     def __str__(self):
         return self.user.username
