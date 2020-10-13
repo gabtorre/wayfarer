@@ -89,11 +89,11 @@ def post_delete(request, post_id):
 
 #render main page
 @login_required(login_url='/login_redirect',)
-def main(request, city_id):
+def main(request, slug):
     cities = City.objects.all()
-    city = City.objects.get(id=city_id)
+    city = City.objects.get(slug=slug)
     # posts = Post.objects.filter(city=city_id)
-    post_list = Post.objects.filter(city=city_id)
+    post_list = Post.objects.filter(city=city.id)
     paginator = Paginator(post_list, 2)
     page = request.GET.get('page')
  
@@ -109,6 +109,10 @@ def main(request, city_id):
     #posts = Post.objects.all()
     context = {'c_city':city, 'posts':posts, 'cities': cities, 'post_form':post_form, 'page':page}
     return render(request, 'main.html', context)
+
+def city(request):
+    cities = City.objects.all()
+    return redirect('main', cities[0].slug)
 
 
 # auth views

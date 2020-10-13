@@ -127,8 +127,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-DEFAULT_IMAGE_PATH = '/images/default.png'
-
 LOGIN_REDIRECT_URL = '/account/profile'
 
 LOGOUT_REDIRECT_URL = '/'
