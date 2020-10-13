@@ -13,7 +13,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-5">
-                <img class="img-thumb" src="https://picsum.photos/100" />
+                  <img class="cropped" src="{{city.image}}" />   
               </div>
               <div class="col-sm-7">
                 <h3 class="article-title mt-4">{{city.name}}</h3>
@@ -28,7 +28,7 @@
     <!-- City Header -->
     <div class="col-sm-9">
       <div class="box">
-        <img src="{{c_city.image}}" width="100%" />
+        <img class="big-crop w-100" src="{{c_city.image}}"/>
         <div class="img-title">
           <h1>{{c_city.name}}</h1>
           <h3>{{c_city.country}}</h3>
@@ -62,7 +62,7 @@
 
               <div class="row">
                 <div class="col-sm-2">
-                  <img width="100px" class="img-thumb rounded-circle" src="{{ post.user.profile.image.url }}" />
+                  <img class="prof-crop rounded-circle" src="{{ post.user.profile.image.url }}" />
                   <p><a href="{% url 'profile' post.user.profile.slug %}">{{ post.user.profile.name }}</a></p>
                   <p>{{ post.user.profile.city }}</p>
                 </div>
@@ -73,7 +73,7 @@
                   <a href="{% url 'post' post.id %}">View More</a>
                 </div>
                 <div class="col-sm-3">
-                  <img class="img-thumb" src="{{ post.image.url }}" />
+                  <img class="post-img" src="{{ post.image.url }}" />
                 </div>
               </div>
 

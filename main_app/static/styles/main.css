@@ -192,3 +192,33 @@ h1 {
   border-radius: 0px;
   text-transform: uppercase;
 }
+
+.cropped {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.big-crop {
+  width: auto;
+  height: 300px;
+  object-fit: cover;
+}
+
+.prof-crop {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.prof-page-crop {
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+}
+
+.post-img {
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+}
