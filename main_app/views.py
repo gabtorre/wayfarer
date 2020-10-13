@@ -74,9 +74,14 @@ def new_post(request, city_id):
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        post_form = Post_Form(request.POST, request.FILES, instance=post)
-        if post_form.is_valid:
-            post_form.save()
+        post_form = Post_Form(request.POST, instance=post)
+        if post_form.is_valid():
+            u_post = post_form.save(commit=False)
+            if request.FILES:
+                u_post.image = request.FILES['image']
+            else:
+                u_post.image = ('images/default.jpg')
+            u_post.save()
         return redirect('post', post_id)
 
     post_form = Post_Form(instance=post)
