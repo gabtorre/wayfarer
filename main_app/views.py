@@ -103,7 +103,7 @@ def post_delete(request, post_id):
 #render main page
 @login_required(login_url='/login_redirect',)
 def main(request, slug):
-    cities = City.objects.all()
+    cities = City.objects.all().order_by('name')
     city = City.objects.get(slug=slug)
     post_list = Post.objects.filter(city=city.id)
     paginator = Paginator(post_list, 10)
