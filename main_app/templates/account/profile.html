@@ -11,15 +11,13 @@
     <div class="row">
         <div class="text-center">
             <img class="img-fluid rounded mt-3" src="https://d1bvwpcbxq9v24.cloudfront.net/NMS0HM9H/Sunset-Skyline-Header-Image.-Courtesty-Austin-Convention-Visitors-Bureau-Credit-Geoff-Duncan_exp-May-2020.jpg" alt="">
-            <div class="card card-profile p-2 w-25 mx-auto">
-                <img class="prof-page-crop rounded-circle z-depth-2 mx-auto" width="150px" alt="100x100" src="{{ t_user.profile.image.url }}"  data-holder-rendered="true">
-                {{t_user.profile.name}}
-                <br> 
-                Current City: {{t_user.profile.city}}
-                <br>
-                Joined: {{t_user.date_joined|date:'m-d-Y'}}
+            <div class="card card-profile p-2 w-25 mx-auto px-3 py-3">
+                <img class="prof-page-crop rounded-circle z-depth-2 mx-auto" width="130px" src="{{ t_user.profile.image.url }}"  data-holder-rendered="true">
+                <p class="post-profile-text post-profile-text-name mt-3">{{t_user.profile.name}}</p>
+                <p class="post-profile-text">Current City: {{t_user.profile.city}}</p>
+                <p class="post-profile-text">Joined: {{t_user.date_joined|date:'m-d-Y'}}</p>
                     {% if t_user.profile.slug  %}
-                <a href="{% url 'profile_edit' %}">edit</a>
+                <a class="btn btn-primary btn-blue mt-3" href="{% url 'profile_edit' %}">Edit</a>
                     {% endif %}
             </div>
         </div>
@@ -28,15 +26,16 @@
 
 <!-- user posts -->
 <div class="container">
+    <h2 class="mt-3">{{t_user.profile.name}}'s Posts</h2>
     <div class="row">
         {% for post in posts.all %}
         <div class="col-md-3 mb-4">
-            <div class="card card-posts mt-5 h-100">
+            <div class="card card-posts mt-2 h-100 text-center text-sm">
                 <div class="card-header">{{post.city}}</div>
                 <div class="card-body">
-                    <img class="img-thumb z-depth-2 mx-auto" width="150px" alt="100x100" src="{{ post.image.url }}"  data-holder-rendered="true">
-                    <p><a class="card-title" href="{% url 'post' post.id %}">{{post.title}}</a></p>
-                    <p class="card-text">{{post.content|truncatewords:"10"}}</p>
+                    <img class="post-img text-center mx-auto" src="{{ post.image.url }}">
+                    <p class="post-profile-title my-0 mt-2 "><a class="card-title red-hover" href="{% url 'post' post.id %}">{{post.title}}</a></p>
+                    <p class="post-profile-text mt-2">{{post.content|truncatewords:"10"}}</p>
                 </div>
             </div>
         </div>

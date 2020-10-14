@@ -105,8 +105,20 @@ h1 {
   letter-spacing: 3px;
 }
 
+h2 {
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
 .card-profile {
-    margin-top: -75px;
+    margin-top: -190px;
+    box-shadow: 0px 9px 25px -2px rgba(62, 189, 195, 0.5);
+}
+
+.card-posts {
+  box-shadow: 0px 14px 25px -13px rgba(62, 189, 195, 0.5);
 }
 
 .city-caption {
@@ -234,4 +246,64 @@ h1 {
 
 .comment-card {
   box-shadow: 0px 14px 25px -13px rgba(62, 189, 195, 0.5);
+}
+
+.post-profile-text {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+}
+
+.post-profile-text-name {
+  padding: 0px;
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.post-profile-text-name a {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--black)
+}
+
+.post-profile-text-name a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--mid-red);
+}
+
+.article-title a:hover {
+text-decoration: underline;
+text-decoration-color: var(--mid-red);
+}
+
+.red-hover:hover {
+  color: var(--black);
+  text-decoration: underline;
+  text-decoration-color: var(--mid-red);
+  }
+
+.card-body-text:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--mid-red);
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.post-profile-title a {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--black)
+}
+
+.my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }

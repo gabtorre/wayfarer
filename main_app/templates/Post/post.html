@@ -3,6 +3,7 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 <div class="container">
 
@@ -32,7 +33,7 @@
         {% endif %}  
       </div>
 
-      <p>{{post.user.profile.name}}</p>
+      <p>Posted by: {{post.user.profile.name}}</p>
 
       <p>{{post.content}}</p>
 
@@ -50,21 +51,31 @@
           </div> 
         </div>
         {% for comment in comments.all %}
-          <div class="card mb-4">
-            <div class="card-body comment-card">
-              <div class="row">
-                <div class="col">
-                  <img class="img-thumb rounded-circle" width="80px" height="80px" src="{{comment.user.profile.image.url}}" alt="">
-                <p>{{comment.user.profile.name}}</p>
-                <p>{{comment.created_date}}</p>
+        <div class="card mb-4">
+          <div class="card-body comment-card">
+
+            <div class="row">
+              <div class="col-sm-2 text-center">
+                <img class="prof-crop rounded-circle" src="{{comment.user.profile.image.url}}" alt="">
+                <p class="post-profile-text post-profile-text-name">{{comment.user.profile.name}}</p>
+                <p class="post-profile-text">{{comment.created_date|naturaltime}}</p>
+
+              </div>
+              <div class="col-sm-7">
+                
                 <p>{{comment.comment}}</p>
                 {% if request.user == comment.user %}
                 <p><a class="btn btn-primary btn-lg btn-blue" href="{% url 'comment_edit' comment.id%}"> Edit Comment</a></p> 
                 {% endif %}
-                </div>
+                
+              </div>
+              <div class="col-sm-3">
+                
               </div>
             </div>
+
           </div>
+        </div>
         {% endfor %}
       </div>
     </div>
