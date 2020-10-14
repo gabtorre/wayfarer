@@ -45,6 +45,10 @@ body {
   /* background-image: url("../download.png"); */
 }
 
+article {
+  font-family: 'Open Sans', sans-serif;
+}
+
 
 footer {
   padding-top: 40px;
@@ -292,6 +296,10 @@ text-decoration-color: var(--mid-red);
 }
 
 .text-sm {
+  font-size: 14px;
+}
+
+.text-xs {
   font-size: 14px;
 }
 
