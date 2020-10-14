@@ -52,7 +52,11 @@ def login_redirect(request):
     home(request)
     return render(request, 'home.html', {"is_true": True})
 
-# post create
+
+
+########## Posts Views ##########
+
+# Post Create
 @login_required(login_url='/login_redirect',)
 def new_post(request, city_id):
     if request.method == 'POST':
@@ -67,9 +71,7 @@ def new_post(request, city_id):
         city = City.objects.get(id=city_id)
         return redirect('main', city.slug)
 
-
-
-# view/update post
+# View/Update Post
 @login_required(login_url='/login_redirect',)
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -90,11 +92,13 @@ def post(request, post_id):
     context = {'post':post, 'post_form': post_form, 'comment_form': comment_form, 'comments': comments}
     return render(request, 'Post/post.html', context)
 
-# delete post
+# Delete Post
 @login_required(login_url='/login_redirect',)
 def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('profile', request.user.profile.slug)
+
+
 
 #render main page
 @login_required(login_url='/login_redirect',)
@@ -122,9 +126,10 @@ def city(request):
     return redirect('main', cities[0].slug)
 
 
-# auth views
 
-# show profile
+########## Profile Views ##########
+
+# Show Profile
 @login_required(login_url='/login_redirect',)
 def profile(request, slug):
     t_profile = Profile.objects.get(slug=slug)
@@ -137,8 +142,7 @@ def profile(request, slug):
     context = {'posts':posts, 't_user':t_user, 'auth':auth}
     return render(request, 'account/profile.html', context)
 
-
-# edit and update
+# Edit and Update Profile
 @login_required(login_url='/login_redirect',)
 def profile_edit(request):
     user = request.user
@@ -173,6 +177,10 @@ def profile_edit(request):
             return render(request, 'account/edit.html', context)
 
 
+
+########## Comment Views ##########
+
+# Add Comment
 @login_required(login_url='/login_redirect',)
 def post_comment(request, post_id):
     comment_form = Comment_Form(request.POST)
@@ -182,3 +190,27 @@ def post_comment(request, post_id):
         new_comment.post = Post.objects.get(id=post_id)
         new_comment.save()
     return redirect('post', post_id)
+
+# Comment Update
+@login_required(login_url='/login_redirect',)
+def comment_edit(request, comment_id):
+  comment = Comment.objects.get(id=comment_id)
+  post = comment.post_id
+  if request.method == 'POST' and request.user == comment.user:
+    comment_form = Comment_Form(request.POST, instance=comment)
+    if comment_form.is_valid():
+      comment_form.save()
+      return redirect('post', post_id=post)
+  else:  
+    comment_form = Comment_Form(instance=comment)
+  context = {'comment': comment, 'comment_form': comment_form, 'post': post }
+  return render(request, 'edit_comment.html', context)
+
+# Comment Delete
+@login_required(login_url='/login_redirect',)
+def comment_delete(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    post = comment.post_id
+    if request.user == comment.user:
+        Comment.objects.get(id=comment_id).delete()
+    return redirect('post', post_id=post)

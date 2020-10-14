@@ -3,6 +3,7 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 <div class="container">
 
@@ -11,18 +12,18 @@
       <img class="img-fluid" src="{{ post.image.url }}" alt="">
 
       <div class="row mt-3 mb-3">
-        <div class="col-8">
+        <div class="col-md-8">
           <h1 class="mid-red">{{post.title}}</h1>
         </div>
         {% if post.user.id == request.user.id  %}
-        <div class="col-2">
+        <div class="col-md-2">
           <button 
           type="button"
           data-toggle="modal"
           data-target="#editPostModal"
           class="btn btn-primary btn-lg btn-block btn-blue">Edit</button>
         </div>
-        <div class="col-2">
+        <div class="col-md-2">
           <button 
           type="button"
           data-toggle="modal"
@@ -32,16 +33,17 @@
         {% endif %}  
       </div>
 
-      <p>{{post.user.profile.name}}</p>
+      <p>Posted by: {{post.user.profile.name}}</p>
+      <p><small>{{post.created_date}}</small></p>
 
-      <p>{{post.content}}</p>
+      <article>{{post.content}}</article>
 
-      <div class="col">
+      <div class="col mt-5">
         <div class="row mt-3 mb-3">
           <div class="col-9">
             <h1 class="blue">Comments</h1>
           </div>
-          <div class="col-3">
+          <div class="col-lg-3">
             <button 
           type="button"
           data-toggle="modal"
@@ -50,17 +52,28 @@
           </div> 
         </div>
         {% for comment in comments.all %}
-          <div class="card mb-4">
-            <div class="card-body comment-card">
-              <div class="row">
-                <div class="col">
-                  <img class="img-thumb rounded-circle" width="80px" height="80px" src="{{comment.user.profile.image.url}}" alt="">
-                <p>{{comment.user.profile.name}}</p>
-                <p>{{comment.comment}}</p> 
-                </div>
+        <div class="card mb-4">
+          <div class="card-body comment-card">
+
+            <div class="row">
+              <div class="col-sm-2 text-center">
+                <img class="prof-crop rounded-circle" src="{{comment.user.profile.image.url}}" alt="">
+                <p class="post-profile-text post-profile-text-name">{{comment.user.profile.name}}</p>
+                <p class="post-profile-text"><small>{{comment.created_date|naturaltime}}</small></p>
+
+              </div>
+              <div class="col-sm-9">
+                
+                <article>{{comment.comment}}</article>
+                {% if request.user == comment.user %}
+                <p><a class="btn btn-primary btn-sm btn-blue mt-3" href="{% url 'comment_edit' comment.id%}"> Edit Comment</a></p> 
+                {% endif %}
+                
               </div>
             </div>
+
           </div>
+        </div>
         {% endfor %}
       </div>
     </div>
