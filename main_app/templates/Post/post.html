@@ -34,6 +34,7 @@
       </div>
 
       <p>Posted by: {{post.user.profile.name}}</p>
+      <p><small>{{post.created_date}}</small></p>
 
       <article>{{post.content}}</article>
 
@@ -42,7 +43,7 @@
           <div class="col-9">
             <h1 class="blue">Comments</h1>
           </div>
-          <div class="col-md-3">
+          <div class="col-lg-3">
             <button 
           type="button"
           data-toggle="modal"
@@ -61,15 +62,12 @@
                 <p class="post-profile-text"><small>{{comment.created_date|naturaltime}}</small></p>
 
               </div>
-              <div class="col-sm-7">
+              <div class="col-sm-9">
                 
                 <article>{{comment.comment}}</article>
                 {% if request.user == comment.user %}
-                <p><a class="btn btn-primary btn-lg btn-blue" href="{% url 'comment_edit' comment.id%}"> Edit Comment</a></p> 
+                <p><a class="btn btn-primary btn-sm btn-blue mt-3" href="{% url 'comment_edit' comment.id%}"> Edit Comment</a></p> 
                 {% endif %}
-                
-              </div>
-              <div class="col-sm-3">
                 
               </div>
             </div>
