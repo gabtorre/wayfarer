@@ -10,7 +10,7 @@
       {% for city in cities.all %}
         <div class="card article">
           <a href="{% url 'main' city.slug %}">
-          <div class="card-body">
+          <div class="card-body card-body-text">
             <div class="row">
               <div class="col-sm-5">
                   <img class="cropped" src="{{city.image}}" />   
@@ -61,16 +61,16 @@
             <div class="card-body">
 
               <div class="row">
-                <div class="col-sm-2">
-                  <img class="prof-crop rounded-circle" src="{{ post.user.profile.image.url }}" />
-                  <p><a href="{% url 'profile' post.user.profile.slug %}">{{ post.user.profile.name }}</a></p>
-                  <p>{{ post.user.profile.city }}</p>
+                <div class="col-sm-2 text-center">
+                  <img class="prof-crop rounded-circle " src="{{ post.user.profile.image.url }}" />
+                  <p class="post-profile-text post-profile-text-name"><a href="{% url 'profile' post.user.profile.slug %}">{{ post.user.profile.name }}</a></p>
+                  <p class="post-profile-text">{{ post.user.profile.city }}</p>
                 </div>
                 <div class="col-sm-7">
                   <h3 class="article-title"><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
-                  <p>{{post.created_date|naturaltime}}</p>
-                  <p>{{post.content|truncatechars:1000|linebreaks}}</p>
-                  <a href="{% url 'post' post.id %}">View More</a>
+                  <p class="post-profile-text">{{post.created_date|naturaltime}}</p>
+                  <article class="mt-3">{{post.content|truncatechars:1000|linebreaks}}</article>
+                  <a class="black post-profile-text-name red-hover" href="{% url 'post' post.id %}">Read More</a>
                 </div>
                 <div class="col-sm-3">
                   <img class="post-img" src="{{ post.image.url }}" />
