@@ -226,10 +226,16 @@ h1 {
   width: 175px;
   height: 175px;
   object-fit: cover;
+} 
+
 .red-text {
   color: red;
 }
 
 .comment-card {
   box-shadow: 0px 14px 25px -13px rgba(62, 189, 195, 0.5);
+}
+
+.disabled {
+  color: black !important;
 }
