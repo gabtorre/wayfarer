@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django_fields import DefaultStaticImageField
 from django.core.files.storage import FileSystemStorage
 fs=FileSystemStorage(location='media/images')
 from django.utils import timezone
