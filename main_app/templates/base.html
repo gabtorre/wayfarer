@@ -1,0 +1,149 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Static CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+
+    <title>Wayfarer</title>
+  </head>
+  <body>
+    <!-- Main Menu -->
+    <nav class="navbar navbar-expand-lg dark-red-bg navbar-light">
+    <div class="container-fluid w-100">
+        <a class="navbar-brand logo" href="{% url 'home' %}">
+            Wayfarer
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+
+            <p class="nav-item nav-link disabled">Welcome {{user.profile.name}}!</p>
+
+            <a class="nav-item nav-link" href="/cities/">Cities</a>
+            {% if user.profile.slug %}
+            <a class="nav-item nav-link" href="{% url 'profile' user.profile.slug %}">Profile</a>
+            {% endif %}
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+            {% else %}
+            <a class="nav-item nav-link" data-toggle="modal" data-target="#loginModal" href="#">Sign In</a>
+            <a class="nav-item nav-link" data-toggle="modal" data-target="#signupModal" href="#">Sign Up</a>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Page Content -->
+
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- Login Form -->
+            <form method="POST" action="{% url 'home' %}">
+            <input type="hidden" name="form_name" value="login_form">
+              {% csrf_token %}
+              {{ auth_form|crispy}}
+              <input type="hidden" name="next" value="{{ next }}">
+
+              <!-- login error handle -->
+              {%if login_errors %}
+              <p class="red-text">Username or password is incorrect.</p>
+              {% endif %}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary btn-blue" value="Sign In">
+          </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- Signup Form -->
+            <form method="post" action="{% url 'home' %}">
+              <input type="hidden" name="form_name" value="signup_form">
+              {% csrf_token %}
+              {{ signup_form|crispy }}
+              
+              <!-- signup error handle -->
+              {%if signup_errors %}
+                <p class="red-text"> {{signup_errors}}</p>
+              {% endif %}
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            <input type="submit" class="btn btn-primary btn-blue" value="Sign Up">
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    
+    <footer class="mt-5">
+      <div class="container">
+      <p class="float-right"><a href="#">Back to top</a></p>
+      <p class="text-white">© 2020 Wayfarer, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </div>
+    </footer>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
+

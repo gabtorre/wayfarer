@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container mb-5">
+    <div class="card mt-5">
+      <div class="card-body">
+        <form enctype="multipart/form-data" action="{% url 'comment_edit' comment.id %}" method='POST' class='w-50 mx-auto h-100'>
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <input type="submit" value="Update" class="btn btn-primary btn-lg btn-block btn-blue">
+            <a class="btn btn-primary btn-lg btn-block btn-red" href="{% url 'comment_delete' comment.id %}">Delete</a>
+        </form>
+        
+        </div>
+    </div>
+</div>
+
+{% endblock %}
