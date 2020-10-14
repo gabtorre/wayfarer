@@ -319,3 +319,7 @@ text-decoration-color: var(--mid-red);
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.errorlist {
+  color: red;
+}

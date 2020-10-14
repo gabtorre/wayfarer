@@ -16,7 +16,7 @@
                 <p class="post-profile-text post-profile-text-name mt-3">{{t_user.profile.name}}</p>
                 <p class="post-profile-text">Current City: {{t_user.profile.city}}</p>
                 <p class="post-profile-text">Joined: {{t_user.date_joined|date:'m-d-Y'}}</p>
-                    {% if t_user.profile.slug  %}
+                    {% if t_user.id == request.user.id  %}
                 <a class="btn btn-primary btn-blue mt-3" href="{% url 'profile_edit' %}">Edit</a>
                     {% endif %}
             </div>
