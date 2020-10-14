@@ -82,7 +82,7 @@ def post(request, post_id):
             if request.FILES:
                 u_post.image = request.FILES['image']
             else:
-                u_post.image = ('images/default.jpg')
+                u_post.image = ('images/default_city.png')
             u_post.save()
         return redirect('post', post_id)
 

@@ -36,7 +36,7 @@
           <div class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
 
-            <p class="nav-item nav-link">Welcome {{user.profile.name}}!</p>
+            <p class="nav-item nav-link disabled">Welcome {{user.profile.name}}!</p>
 
             <a class="nav-item nav-link" href="/cities/">Cities</a>
             {% if user.profile.slug %}

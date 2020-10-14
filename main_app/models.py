@@ -53,7 +53,7 @@ class City(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200, blank=False)
     content = models.TextField(max_length=2000, blank=False)
-    image = models.ImageField(default = 'images/default.jpg', null=True, blank=True, upload_to = 'images')
+    image = models.ImageField(default = 'images/default_city.png', null=True, blank=True, upload_to = 'images')
     created_date = models.DateTimeField('date created', default=timezone.now)
     user = models.ForeignKey(User, on_delete=(models.CASCADE))
     city = models.ForeignKey(City, on_delete=(models.CASCADE))

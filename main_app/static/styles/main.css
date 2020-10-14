@@ -252,6 +252,10 @@ h2 {
   box-shadow: 0px 14px 25px -13px rgba(62, 189, 195, 0.5);
 }
 
+.disabled {
+  color: black !important;
+}
+
 .post-profile-text {
   padding: 0px;
   margin: 0px;
