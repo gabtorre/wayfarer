@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+<div class="container">
+
+  <div class="card mt-5">
+    <div class="card-body">
+      <img class="img-fluid" src="{{ post.image.url }}" alt="">
+
+      <div class="row mt-3 mb-3">
+        <div class="col-md-8">
+          <h1 class="mid-red">{{post.title}}</h1>
+        </div>
+        {% if post.user.id == request.user.id  %}
+        <div class="col-md-2">
+          <button 
+          type="button"
+          data-toggle="modal"
+          data-target="#editPostModal"
+          class="btn btn-primary btn-lg btn-block btn-blue">Edit</button>
+        </div>
+        <div class="col-md-2">
+          <button 
+          type="button"
+          data-toggle="modal"
+          data-target="#deletePostModal"
+          class="btn btn-primary btn-lg btn-block btn-red">Delete</button>
+        </div>
+        {% endif %}  
+      </div>
+
+      <p>Posted by: {{post.user.profile.name}}</p>
+      <p><small>{{post.created_date}}</small></p>
+
+      <article>{{post.content}}</article>
+
+      <div class="col mt-5">
+        <div class="row mt-3 mb-3">
+          <div class="col-9">
+            <h1 class="blue">Comments</h1>
+          </div>
+          <div class="col-lg-3">
+            <button 
+          type="button"
+          data-toggle="modal"
+          data-target="#commentModal"
+          class="btn btn-primary btn-lg btn-blue w-100">Add Comment</button>
+          </div> 
+        </div>
+        {% for comment in comments.all %}
+        <div class="card mb-4">
+          <div class="card-body comment-card">
+
+            <div class="row">
+              <div class="col-sm-2 text-center">
+                <img class="prof-crop rounded-circle" src="{{comment.user.profile.image.url}}" alt="">
+                <p class="post-profile-text post-profile-text-name">{{comment.user.profile.name}}</p>
+                <p class="post-profile-text"><small>{{comment.created_date|naturaltime}}</small></p>
+
+              </div>
+              <div class="col-sm-9">
+                
+                <article>{{comment.comment}}</article>
+                {% if request.user == comment.user %}
+                <p><a class="btn btn-primary btn-sm btn-blue mt-3" href="{% url 'comment_edit' comment.id%}"> Edit Comment</a></p> 
+                {% endif %}
+                
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- edit post Modal -->
+    <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editPostModalLabel">Edit <em>{{post.title}}</em></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- edit post Form -->
+            <form method="post" action="{% url 'post' post.id %}">
+              <input type="hidden" name="form_name" value="signup_form">
+              {% csrf_token %}
+              {{ post_form|crispy}}            
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary btn-blue" value="Update Post">
+          </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+<!-- delete post Modal -->
+    <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deletePostModalLabel">Are you sure?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- delete post confirm-->
+            <p>Are you sure you want to delete <em>{{post.title}}</em>?</p>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary text-uppercase" data-dismiss="modal">Close</button>
+            <a class="btn btn-primary btn-red" href="{% url 'post_delete' post.id%}">Confirm</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Comment Modal -->
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="commentModalLabel">Add Comment to <em>{{post.title}}</em></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- edit post Form -->
+            <form method="post" action="{% url 'comment' post.id %}">
+              <input type="hidden" name="form_name" value="signup_form">
+              {% csrf_token %}
+              {{ comment_form|crispy}}            
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary btn-blue" value="Add Comment">
+          </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
