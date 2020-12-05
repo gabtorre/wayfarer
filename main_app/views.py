@@ -12,13 +12,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # internal
 from .forms import Profile_Form, Post_Form, Comment_Form
 from .models import Post, City, Profile, Comment
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-# Create your views here.
-
-# main views
+########## Main Views ##########
 def home(request):
     #   Signup Post
     if request.method == 'POST' and request.POST['form_name'] == 'signup_form':  
@@ -100,8 +97,8 @@ def post_delete(request, post_id):
 
 
 
-#render main page
-@login_required(login_url='/login_redirect',)
+########## Main Page Views ##########
+# @login_required(login_url='/login_redirect',)
 def main(request, slug):
     cities = City.objects.all().order_by('name')
     city = City.objects.get(slug=slug)
