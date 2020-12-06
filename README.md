@@ -26,43 +26,25 @@ Username: demo - Password: demo1234
 <table>
   <tr>
   <td>
-  <img src="images/django.svg" width="75">
+  <img src="images/django.svg" width="100px">
   </td>
   <td>
-  <div style="width: 40px">
-
-  ![Python](images/python.svg)
-  </div>
+  <img src="images/python.svg" width="75px">
   </td>
   <td>
-  <div style="width: 40px">
-
-  ![JS](images/javascript.svg)
-  </div>
+  <img src="images/javascript.svg" width="75px">
   </td>
   <td>
-  <div style="width: 40px">
-
-  ![postgres](images/postgresql.svg)
-  </div>
+  <img src="images/postgresql.svg" width="75px">
   </td>
   <td>
-  <div style="width: 40px">
-
-  ![Bootstrap](images/bootstrap.svg)
-  </div>
+  <img src="images/bootstrap.svg" width="75px">
   </td>
   <td>
-  <div style="width: 40px">
-
-  ![css](images/css3.svg)
-  </div>
+  <img src="images/css3.svg" width="75px">
   </td>
   <td>
-  <div style="width: 40px">
-  
-  ![HTML](images/html5.svg)
-  </div>
+  <img src="images/html5.svg" width="75px">
   </td>
 </tr>
 </table>
