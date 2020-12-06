@@ -26,10 +26,7 @@ Username: demo - Password: demo1234
 <table>
   <tr>
   <td>
-  <div style="width: 40px">
-
-  ![Django](images/django.svg)
-  </div>
+  <img src="images/django.svg" width="75">
   </td>
   <td>
   <div style="width: 40px">
