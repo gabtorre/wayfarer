@@ -39,6 +39,7 @@
             <p class="nav-item nav-link disabled">Welcome {{user.profile.name}}!</p>
             <!-- <a class="nav-item nav-link" href="/cities/">Cities</a> -->
             {% if user.profile.slug %}
+            <a class="nav-item nav-link" href="/cities/">Cities</a>
             <a class="nav-item nav-link" href="{% url 'profile' user.profile.slug %}">Profile</a>
             {% endif %}
             <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>

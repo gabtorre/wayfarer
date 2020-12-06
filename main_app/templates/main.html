@@ -2,6 +2,7 @@
 
 {% load crispy_forms_tags %}
 {% load humanize %}
+{% load cloudinary %}
 <!-- Cities Menu -->
 <div class="mt-5 w-100 container-fluid">
   <div class="row">
@@ -61,7 +62,6 @@
           {% for post in posts %}
           <div class="card article">
             <div class="card-body">
-
               <div class="row">
                 <div class="col-sm-2 text-center">
                   <img class="prof-crop rounded-circle " src="{{ post.user.profile.image.url }}" />
@@ -78,12 +78,10 @@
                   <img class="post-img" src="{{ post.image.url }}" />
                 </div>
               </div>
-
             </div>
           </div>
             
           {% endfor %}
-
           {%	include	'pagination.html'	with	page=posts	%}
 
     </div>
@@ -97,11 +95,9 @@
         {% if current_page.has_previous %}
             <a href="?page={{ current_page.previous_page_number }}">Previous</a>
         {% endif %}
-
         <span>
             Page {{ current_page.number }} of {{ current_page.paginator.num_pages }}.
         </span>
-
         {% if current_page.has_next %}
             <a href="?page={{ current_page.next_page_number }}">Next</a>
         {% endif %}
@@ -109,8 +105,6 @@
 </div>
 {% endif %}
 </div>
-
-
 
 <!-- new post Modal -->
 <div
@@ -140,8 +134,6 @@
         <!-- new post Form -->
         <form enctype="multipart/form-data" method="POST" action="{% url 'new_post' c_city.id %}">
           {% csrf_token %} {{ post_form|crispy }}
-          
-        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary text-uppercase" data-dismiss="modal">

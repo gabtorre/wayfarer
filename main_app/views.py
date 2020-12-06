@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from cloudinary.forms import cl_init_js_callbacks 
 
 # internal
 from .forms import Profile_Form, Post_Form, Comment_Form
@@ -44,11 +45,9 @@ def home(request):
         return render(request, 'home.html')
 
 
-
 def login_redirect(request):
     home(request)
     return render(request, 'home.html', {"is_true": True})
-
 
 
 ########## Posts Views ##########
@@ -73,13 +72,11 @@ def new_post(request, city_id):
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        post_form = Post_Form(request.POST, instance=post)
+        post_form = Post_Form(request.POST, request.FILES, instance=post)
         if post_form.is_valid():
             u_post = post_form.save(commit=False)
             if request.FILES:
                 u_post.image = request.FILES['image']
-            else:
-                u_post.image = ('images/default_city.png')
             u_post.save()
         return redirect('post', post_id)
 
@@ -94,7 +91,6 @@ def post(request, post_id):
 def post_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('profile', request.user.profile.slug)
-
 
 
 ########## Main Page Views ##########
@@ -123,7 +119,6 @@ def city(request):
     return redirect('main', cities[0].slug)
 
 
-
 ########## Profile Views ##########
 
 # Show Profile
@@ -145,22 +140,24 @@ def profile_edit(request):
     user = request.user
     if request.method == 'POST':
         try:
-            profile_form = Profile_Form(request.POST, instance=user.profile)
+            profile_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
-                if request.FILES:
+                if request.FILES.get('image'):
                     new_profile.image = request.FILES['image']
-                else:
-                    new_profile.image = 'images/default.jpg'
+                if request.FILES.get('header_image'):
+                    new_profile.header_image = request.FILES['header_image']
                 new_profile.save()
         except:
-            profile_form = Profile_Form(request.POST)
+            profile_form = Profile_Form(request.POST, request.FILES)
             if profile_form.is_valid():
                 new_profile = profile_form.save(commit=False)
                 new_profile.user = request.user
-                if request.FILES:
+                if request.FILES.get('image'):
                     new_profile.image = request.FILES['image']
+                if request.FILES.get('header_image'):
+                    new_profile.header_image = request.FILES['header_image']
                 new_profile.save()
         return redirect('profile', request.user.profile.slug)
     else:
@@ -172,7 +169,6 @@ def profile_edit(request):
             profile_form = Profile_Form()
             context = {'profile_form': profile_form}
             return render(request, 'account/edit.html', context)
-
 
 
 ########## Comment Views ##########

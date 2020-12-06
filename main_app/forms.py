@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 class Profile_Form(ModelForm):
     class Meta:
         model = Profile
-        fields = ['name','city', 'image']
+        fields = ['name','city', 'image', 'header_image']
 
 class Post_Form(ModelForm):
     class Meta:

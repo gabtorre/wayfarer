@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.template.defaultfilters import slugify
+from cloudinary.models import CloudinaryField
 
 # Make emails unique thanks to Quin
 
@@ -18,15 +19,16 @@ class Profile(models.Model):
     name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     user = models.OneToOneField(User, on_delete=(models.CASCADE))
-    image = models.ImageField(null=True, blank=True, upload_to = 'images', default = 'images/default.jpg')
+    image = CloudinaryField('image', default = 'vakswo7ai7e9njbn7tfw.jpg', null=True, blank=True, overwrite=True)
+    header_image = CloudinaryField('Header Image', default = 'eat3x7tmegk7jvt4kpjo.jpg', null=True, blank=True, overwrite=True)
     slug = models.SlugField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.user.username)
         return super().save(*args, **kwargs)
 
-        def get_absolute_url(self):
-            return reverse('profile', kwargs={'slug':self.slug})
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'slug':self.slug})
     
     def __str__(self):
         return self.user.username
@@ -52,7 +54,7 @@ class City(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200, blank=False)
     content = models.TextField(max_length=2000, blank=False)
-    image = models.ImageField(default = 'images/default_city.png', null=True, blank=True, upload_to = 'images')
+    image = CloudinaryField('image', default = 'eat3x7tmegk7jvt4kpjo.jpg', null=True, blank=True, overwrite=True)
     created_date = models.DateTimeField('date created', default=timezone.now)
     user = models.ForeignKey(User, on_delete=(models.CASCADE))
     city = models.ForeignKey(City, on_delete=(models.CASCADE))
@@ -75,9 +77,3 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_date']
-    
-
-
-
-    
-
