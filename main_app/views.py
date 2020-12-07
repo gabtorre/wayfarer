@@ -42,7 +42,9 @@ def home(request):
             context = {'login_errors': form.errors}
             return render(request, 'home.html', context)
     else:
-        return render(request, 'home.html')
+        recent_posts = Post.objects.all().order_by('-created_date')[:3]
+        context = {'recent_posts': recent_posts}
+        return render(request, 'home.html', context)
 
 
 def login_redirect(request):
