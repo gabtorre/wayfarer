@@ -4,7 +4,7 @@
 
 Wayfarer is a travel community for users to share tips about their favorite locations around the world.
 
-[Live Demo 🖥️ ](https://wayfarer-2020.herokuapp.com/)
+[Live Demo 🖥️ ](https://wayfarer-gkm.herokuapp.com/)
 
 Log in to explore the application:
 
