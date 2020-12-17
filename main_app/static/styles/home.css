@@ -460,6 +460,10 @@ text-decoration-color: var(--mid-red);
   height: 90vh;
 }
 
+.carousel-image {
+  height: 90vh;
+}
+
 @media (max-width: 992px) {
   .slider__card {
     display: none;
