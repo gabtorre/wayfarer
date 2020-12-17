@@ -4,86 +4,53 @@
 {% load humanize %}
 {% load cloudinary %}
 <!-- Cities Menu -->
-<div class="mt-5 w-100 container-fluid">
+<div class="box">
+  <img class="big-crop w-100" src="{{c_city.image}}"/>
+  <div class="img-title">
+    <h1>{{c_city.name}}</h1>
+    <h3>{{c_city.country}}</h3>
+  </div>
+</div>
+<div class="w-100 container-fluid">
   <div class="row">
-    <div class="col-sm-3">
-      <h1>Cities</h1>
-      {% for city in cities.all %}
-        <div class="card article">
-          <a href="{% url 'main' city.slug %}">
-          <div class="card-body card-body-text">
-            <div class="row">
-              <div class="col-sm-5">
-                  <img class="cropped" src="{{city.image}}" />   
-              </div>
-              <div class="col-sm-7">
-                <h3 class="article-title mt-4">{{city.name}}</h3>
-              </div>
-            </div>
-          </div>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-
     <!-- City Header -->
-    <div class="col-sm-9">
-      <div class="box">
-        <img class="big-crop w-100" src="{{c_city.image}}"/>
-        <div class="img-title">
-          <h1>{{c_city.name}}</h1>
-          <h3>{{c_city.country}}</h3>
-        </div>
-      </div>
-      
-
-        <div class="row mt-3 mb-3">
-          <div class="col-sm">
-            <h1>Posts</h1>
-          </div>
-          <div class="col-sm">
-          </div>
-          <div class="col-sm">
-          </div>
-          <div class="col-sm">
+    <div class="col-sm-12">      
+      <!-- City Posts -->
+      <div class="container mt-5">
+          <div class="add-button-container">
+            <h3 class="black">Posts</h3>
             {% if user.is_authenticated %}
             <button 
               type="button"
               data-toggle="modal"
               data-target="#newpostmodal"
-              class="btn btn-primary btn-lg btn-block btn-red">Add Post</button>
+              class="btn btn-primary btn-lg btn-red ml-auto">Add Post</button>
             {% endif %}
           </div>
-        </div>
-
-
-      <!-- City Posts -->
-
-          {% for post in posts %}
-          <div class="card article">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-2 text-center">
-                  <img class="prof-crop rounded-circle " src="{{ post.user.profile.image.url }}" />
-                  <p class="post-profile-text post-profile-text-name"><a href="{% url 'profile' post.user.profile.slug %}">{{ post.user.profile.name }}</a></p>
-                  <p class="post-profile-text">{{ post.user.profile.city }}</p>
-                </div>
-                <div class="col-sm-7">
-                  <h3 class="article-title"><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
-                  <p class="post-profile-text">{{post.created_date|naturaltime}}</p>
-                  <article class="mt-3">{{post.content|truncatechars:1000|linebreaks}}</article>
-                  <a class="black post-profile-text-name red-hover" href="{% url 'post' post.id %}">Read More</a>
-                </div>
-                <div class="col-sm-3">
-                  <img class="post-img" src="{{ post.image.url }}" />
-                </div>
+        <div class="row mt-4">
+        {% for post in posts %}
+        <div class="col-lg-4">
+          <div class="card recent-posts">
+            <div class="recent-posts__container">
+              <img class="recent-posts__img" src="{{ post.image.url }}" />
+            </div>
+            <div class="recent-posts__profile">
+              <img class="rounded-circle recent-posts__profile-img" src="{{ post.user.profile.image.url }}" />
+              <div class="recent-posts__profile-text">
+                <a class="recent-posts__profile-text__name" href="{% url 'profile' post.user.profile.slug %}">{{ post.user.profile.name }}</a>
+                <p>{{post.created_date|naturaltime}}</p>
               </div>
             </div>
+            <div class="card-body recent-posts__article-body">
+              <h3 class="recent-posts__title"><a href="{% url 'post' post.id %}">{{post.title}}</a></h3>
+              <article class="mt-2 recent-posts__article-body-text">{{post.content|truncatechars:150|linebreaks}}</article>
+            </div>
           </div>
-            
-          {% endfor %}
-          {%	include	'pagination.html'	with	page=posts	%}
-
+        </div>
+        {% endfor %}
+        </div>
+        {%	include	'pagination.html'	with	page=posts	%}
+      </div>
     </div>
   </div>
 </div>

@@ -3,12 +3,14 @@
 {% block content %}
 
 <!-- user info -->
+<div class="box">
+    <img class="big-crop w-100" src="{{t_user.profile.header_image.url}}"/>
+</div>
 <div class="container mt-100">
     <div class="row">
-        <div class="text-center">
-            <img class="img-fluid rounded mt-3" src="{{ t_user.profile.header_image.url }}" alt="">
-            <div class="card card-profile p-2 w-25 mx-auto px-3 py-3">
-                <img class="prof-page-crop rounded-circle z-depth-2 mx-auto" width="130px" src="{{ t_user.profile.image.url }}"  data-holder-rendered="true">
+        <div class="text-center w-100">
+            <div class="card card-profile p-2 mx-auto px-3 py-3">
+                <img class="prof-page-crop rounded-circle z-depth-2 mx-auto" width="130px" height="auto" src="{{ t_user.profile.image.url }}"  data-holder-rendered="true">
                 <p class="post-profile-text post-profile-text-name mt-3">{{t_user.profile.name}}</p>
                 <p class="post-profile-text">Current City: {{t_user.profile.city}}</p>
                 <p class="post-profile-text">Joined: {{t_user.date_joined|date:'m-d-Y'}}</p>
@@ -21,8 +23,8 @@
 </div>
 
 <!-- user posts -->
-<div class="container">
-    <h2 class="mt-3">{{t_user.profile.name}}'s Posts</h2>
+<div class="container mt-5">
+    <h3 class="black text-center">{{t_user.profile.name}}'s Posts</h3>
     <div class="row">
         {% for post in posts.all %}
         <div class="col-md-3 mb-4">

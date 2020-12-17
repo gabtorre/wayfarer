@@ -1,4 +1,4 @@
-staticfiles
+wayfare/staticfiles/
 staticfiles/
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,django

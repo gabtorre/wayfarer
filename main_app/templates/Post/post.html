@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col-sm-2 text-center">
                 <img class="prof-crop rounded-circle" src="{{comment.user.profile.image.url}}" alt="">
-                <p class="post-profile-text post-profile-text-name">{{comment.user.profile.name}}</p>
+                <p class="post-profile-text post-profile-text-name"><a class="recent-posts__profile-text__name" href="{% url 'profile' comment.user.profile.slug %}">{{comment.user.profile.name}}</a></p>
                 <p class="post-profile-text"><small>{{comment.created_date|naturaltime}}</small></p>
               </div>
               <div class="col-sm-9">
